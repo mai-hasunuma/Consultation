@@ -3,13 +3,14 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
+ #active storage
+  has_one_attached :image
 
          #今悩み、過去悩みテーブルをユーザと同時に登録できるように下記の通り記述
          has_many :current_troubles, dependent: :destroy
-         accepts_nested_attributes_for :current_troubles
+         has_many :trouble_categories, :through => :current_troubles
 
          has_many :past_troubles, dependent: :destroy
-         accepts_nested_attributes_for :past_troubles
 
          has_many :boards
          has_many :board_comments
