@@ -1,0 +1,21 @@
+<h1>ユーザ詳細画面</h1>
+  <% if @user.image.attached? %>
+    <%= image_tag @user.image %>
+  <% end %>
+  <%= @user.name %>
+  <p>主婦歴</p>
+  <%= @user.housewife_year %>年
+
+  <%= @user.introduction %>
+
+  <p>今悩んでいること</p>
+  <% @user.current_troubles.each do |c| %>
+    <%= c.trouble_category.name %>
+  <% end %>
+
+  <p>過去悩んでいたこと</p>
+  <% @user.past_troubles.each do |p| %>
+    <%= p.trouble_category.name %>
+    <% end %>
+
+

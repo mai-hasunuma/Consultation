@@ -1,0 +1,11 @@
+<h1>ユーザ一覧</h1>
+<% @users.each do |user| %>
+  <% if user.image.attached? %>
+    <%= image_tag user.image %>
+  <% end %>
+  <%= user.name %>
+  <%= user.housewife_year %>
+  <%= truncate(user.introduction, length: 20) do %>
+    <%= link_to '続きを読む', user_path(user) %>
+  <% end %>
+<% end %>
