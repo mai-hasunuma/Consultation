@@ -1,5 +1,5 @@
 <h1>ユーザ情報登録</h1>
-<%= form_with model: @user, url: user_path, local: true do |f| %>
+<%= form_with model: @user, local: true do |f| %>
   <div class="field">
       <%= f.label :name,"名前" %>
       <%= f.text_field :name, autocomplete: "name", autofocus: true %>
@@ -25,18 +25,17 @@
   <p>今悩んでいること</p>
     <div class="field">
       <!-- 下の行で現在編集している一人のユーザのために、複数のcurrent_troubleテーブルを作成できるようになる -->
-      <%= f.fields_for :current_troubles do |c| %>
+      <%= f.fields_for :current_troubles do |ct| %>
         <!-- c.collection_check_categoryboxesで選択してcreateできるようになる -->
-        <%= c.collection_check_boxes :trouble_category_ids, @trouble_categories ,:id, :name, include_hidden: false do |b| %>
-          <%=  b.label {b.check_box + b.text}  %>
-        <% end %>
+        <%= ct.collection_check_boxes :trouble_trouble_ids, @trouble_categories, :id, :name %>
+        <%# binding.pry %>
       <% end %>
     </div>
-
+<!-- ,options: {selected: @current_troubles.ids}-->
   <p>過去悩んでいたこと</p>
   <div class="field">
-    <%= f.fields_for :past_troubles do |c| %>
-      <%= c.collection_check_boxes :trouble_category_ids, @trouble_categories ,:id, :name, include_hidden: false do |b| %>
+    <%= f.fields_for :past_troubles do |pt| %>
+      <%= pt.collection_check_boxes :trouble_category_ids, @trouble_categories, :id, :name do |b| %>
           <%=  b.label {b.check_box + b.text}  %>
       <% end %>
     <% end %>
