@@ -38,6 +38,7 @@ class UsersController < ApplicationController
 
   def index
     @q = User.ransack(params[:q])
+    @trouble_categories = TroubleCategory.all
     @users = @q.result(distinct: true)
   end
 
@@ -61,7 +62,10 @@ class UsersController < ApplicationController
   end
 
   def search_params
-    params.require(:q).permit!
+    params.require(:q).permit(:introduction_cont, :housewife_year_gteq, :housewife_year_lt,
+                              {current_trouble_categories_id_in: []},
+                              {past_trouble_categories_id_in: []},
+                              )
   end
 
 end

@@ -16,12 +16,15 @@ class User < ApplicationRecord
   # 上と同じくpastモデルも関連付けする
   has_many :past_trouble_categories, :through => :past_troubles, source: :trouble_category
 
+  # 掲示板
   has_many :boards
   has_many :board_comments
+
+  # DM
   has_many :entries, dependent: :destroy
   has_many :room_comments, dependent: :destroy
 
-        #通知モデルにいいねをつけた人のuser_id(visiter_id)を入れるための関連付け
-        has_many :active_notifications, class_name: "Notification", foreign_key: "visiter_id", dependent: :destroy
-        has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
+  #通知モデルにいいねをつけた人のuser_id(visiter_id)を入れるための関連付け
+  has_many :active_notifications, class_name: "Notification", foreign_key: "visiter_id", dependent: :destroy
+  has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
 end
