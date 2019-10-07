@@ -11,7 +11,9 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
+    @user.update(user_params)
+      # current_trouble_category_idとpast_trouble_category_idを受け渡しているので下記の記述は不要となる
+      # ここから
       # params[:user][:current_troubles][:trouble_category_ids].each do |current_trouble|
       #   a = CurrentTrouble.new
       #   a.user_id = current_user.id.to_i
@@ -25,8 +27,7 @@ class UsersController < ApplicationController
       #   b.trouble_category_id = past_trouble.to_i
       #   b.save!
       # end
-      puts "success"
-    end
+      # ここまで
     redirect_to users_path
   end
 
@@ -54,10 +55,8 @@ class UsersController < ApplicationController
   private
   def user_params
   params.require(:user).permit(:name, :housewife_year, :image, :introduction,
-                               {trouble_category_ids: []},
-                               # {past_trouble_ids: []},
-                               #current_troubles_attributes: [ :id, :user_id, :trouble_category_id, :_destroy ],
-                               #past_troubles_attributes: [ :id, :user_id, :trouble_category_id, :_destroy ]
+                               {current_trouble_category_ids: []},
+                               {past_trouble_category_ids: []},
                                )
   end
 
