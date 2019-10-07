@@ -8,9 +8,13 @@ class User < ApplicationRecord
 
          #今悩み、過去悩みテーブルをユーザと同時に登録できるように下記の通り記述
          has_many :current_troubles, dependent: :destroy
-         has_many :trouble_categories, :through => :current_troubles
+         # 参照元のモデル（troubule_category）をcurrent_trouble_categoriesという名前に変更してcurrent_trouble経由で関連ずけ
+         has_many :current_trouble_categories, :through => :current_troubles, source: :trouble_category
+         # accepts_nested_attributes_for :current_troubles, allow_destroy: true
 
          has_many :past_troubles, dependent: :destroy
+         has_many :past_trouble_categories, :through => :past_troubles, source: :trouble_category
+         # accepts_nested_attributes_for :past_troubles, allow_destroy: true
 
          has_many :boards
          has_many :board_comments

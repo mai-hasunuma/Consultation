@@ -1,4 +1,7 @@
 <h1>ユーザ一覧</h1>
+
+<%= render 'shared/user_search_form' %>
+
 <% @users.each do |user| %>
   <% if user.image.attached? %>
     <%= image_tag user.image %>
