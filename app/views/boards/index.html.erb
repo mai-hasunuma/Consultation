@@ -1,0 +1,28 @@
+<h1>スレッド一覧</h1>
+<%= link_to "スレッド新規作成", new_board_path %>
+
+<p>カテゴリー</p>
+<p>タイトル</p>
+
+<table class="table table-borderless">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">タイトル</th>
+      <th scope="col">最終更新</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @boards.each do |board| %>
+      <tr>
+        <td><%= board.user.name %></td>
+        <td>
+          <%= link_to board_path(board) do %>
+            <%= board.user.name %>
+          <% end %>
+        </td>
+        <td><%= board.updated_at.strftime("%Y/%m/%d")  %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
