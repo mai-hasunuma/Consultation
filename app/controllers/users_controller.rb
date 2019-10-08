@@ -6,7 +6,6 @@ class UsersController < ApplicationController
     @trouble_categories = TroubleCategory.all
     @user.current_troubles.find_or_initialize_by(user_id: @user.id)
     @user.past_troubles.find_or_initialize_by(user_id: @user.id)
-    # binding.pry
   end
 
   def update

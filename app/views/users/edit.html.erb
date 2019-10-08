@@ -29,14 +29,16 @@
       <%#= f.fields_for :current_troubles do |ct| %>
         <!-- c.collection_check_categoryboxesで選択してcreateできるようになる -->
         <!-- userモデルでhas_many :current_trouble_categories, :through => :current_troubles, source: :trouble_category と記載しているのでcurrent_trouble_category_idにtrouble_categoryを入れることができる -->
-        <%= f.collection_check_boxes :current_trouble_category_ids, @trouble_categories, :id, :name %>
+        <%= f.collection_check_boxes :current_trouble_category_ids, @trouble_categories, :id, :name, include_hidden: false  do |b| %>
+          <%=  b.label {b.check_box + b.text}  %>
+        <% end %>
       <%# end %>
     </div>
 <!-- ,options: {selected: @current_troubles.ids}-->
   <p>過去悩んでいたこと</p>
   <div class="field">
     <%#= f.fields_for :past_troubles do |pt| %>
-      <%= f.collection_check_boxes :past_trouble_category_ids, @trouble_categories, :id, :name do |b| %>
+      <%= f.collection_check_boxes :past_trouble_category_ids, @trouble_categories, :id, :name, include_hidden: false  do |b| %>
           <%=  b.label {b.check_box + b.text}  %>
       <% end %>
     <%# end %>
