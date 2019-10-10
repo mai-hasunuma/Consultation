@@ -27,7 +27,8 @@ class BoardsController < ApplicationController
   def update
     @board = Board.find(params[:id])
     @board.update(board_params)
-      redirect_to board_path(@board)
+    binding.pry
+    redirect_to board_path(@board)
   end
 
   def index

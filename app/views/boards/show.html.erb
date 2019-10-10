@@ -18,10 +18,19 @@
 <% end %>
 
 <%= @board.content %>
+<% if @board.images.attached? %>
+  <% @board.images.each do |image| %>
+    <%= image_tag image %> <br>
+  <% end %>
+<% end %>
 
 <div id='chat'>
   <% @board_comments.each do |board_comment| %>
     <%= board_comment.content %>
+    <% image = board_comment.user.image %>
+    <% image_url = Rails.application.routes.url_helpers.polymorphic_url(image) %>
+<!--     rubyの式を書く時はこのようにする -->
+    <img src=<%= image_url %>>
     <p><%= board_comment.user.name %></p>
     <% end %>
 </div>
@@ -30,3 +39,4 @@
   投稿： <input type="text" />
   <input type="submit" value="投稿" onClick="postBoardMessage()" />
 </form>
+
