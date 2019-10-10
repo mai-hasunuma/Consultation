@@ -1,0 +1,15 @@
+<h1>DM</h1>
+<h2>comments</h2>
+
+<div id='chat'>
+  <% @room_comments.each do |room_comment| %>
+    <%= room_comment.content %>
+    <p><%= room_comment.user.name %></p>
+  <% end %>
+</div>
+
+<form>
+  投稿： <input type="text" />
+  <input type="submit" value="投稿" onClick="postRoomMessage()" />
+</form>
+
