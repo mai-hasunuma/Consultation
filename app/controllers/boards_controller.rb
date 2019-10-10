@@ -18,6 +18,18 @@ class BoardsController < ApplicationController
     redirect_to boards_path
   end
 
+  def edit
+    @board = Board.find(params[:id])
+    @board_categories = BoardCategory.all
+    @board_category = @board.board_categories.build
+  end
+
+  def update
+    @board = Board.find(params[:id])
+    @board.update(board_params)
+      redirect_to board_path(@board)
+  end
+
   def index
     @boards = Board.all
   end
