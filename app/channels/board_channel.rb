@@ -11,6 +11,6 @@ class BoardChannel < ApplicationCable::Channel
   #購読しているチャンネルにメッセージを配信する記載
   def speak(data)
     board_comment = BoardComment.create!(user_id: current_user.id, board_id: data['board_id'], content: data['message'])
-    ActionCable.server.broadcast 'board_channel', {name: by +current_user.name, message: data['message']}
+    ActionCable.server.broadcast 'board_channel', {name: current_user.name, message: data['message']}
   end
 end
