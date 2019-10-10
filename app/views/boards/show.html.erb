@@ -6,6 +6,11 @@
 <%= @board.created_at.strftime("%Y/%m/%d") %>
 <span>最終更新日</span>
 <%= @board.updated_at.strftime("%Y/%m/%d") %>
+
+<% if @board.user == current_user %>
+  <%= link_to 'スレッド編集', edit_board_path %>
+<% end %>
+
 <h1><%= @board.title %></h1>
 <%= @board.user.name %><br>
 <% if @board.user.image.attached? %>
@@ -14,6 +19,14 @@
 
 <%= @board.content %>
 
-<div id='board_comments'>
-  <%= render @board_comments %>
+<div id='chat'>
+  <% @board_comments.each do |board_comment| %>
+    <%= board_comment.content %>
+    <p><%= board_comment.user.name %></p>
+    <% end %>
 </div>
+
+<form>
+  投稿： <input type="text" />
+  <input type="submit" value="投稿" onClick="postBoardMessage()" />
+</form>

@@ -11,4 +11,8 @@ Rails.application.routes.draw do
 
   # board
   resources :boards, only: [:new, :create, :edit, :update, :index, :show]
+  get 'search', to: 'boards#search'
+
+  #actioncable
+  mount ActionCable.server => '/cable'
 end

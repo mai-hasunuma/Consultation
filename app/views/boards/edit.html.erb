@@ -1,0 +1,25 @@
+<h1>掲示板編集画面</h1>
+<%= form_with model: @board, local: true do |f| %>
+  <div class="field">
+    <label>カテゴリー</label>
+    <%= f.collection_check_boxes :board_category_ids, @board_categories, :id, :name, include_hidden: false do |b| %>
+      <%= b.label {b.check_box + b.text} %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :content, "コメント" %>
+    <%= f.text_area :content %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image, "画像" %>
+    <%= f.file_field :image, multiple: true %>
+  </div>
+  <%= f.submit "スレッド作成" %>
+<% end %>

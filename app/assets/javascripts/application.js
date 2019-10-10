@@ -17,3 +17,9 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
+function postBoardMessage() {
+  event.preventDefault();
+  var element = document.querySelector('input[type="text"]');
+  App.board.speak(element.value);
+  element.value = '';
+}
