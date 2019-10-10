@@ -25,8 +25,9 @@ App.board = App.cable.subscriptions.create("BoardChannel", {
     //ココマデ
 
 　　 // プロフィール画像表示
-    var newUserImage = document.createElement('img')
-    newUserImage.src = ''
+    var newUserImage = document.createElement('img');
+    newUserImage.src = data.image;
+    chat.appendChild(newUserImage);
 
     //以下ユーザ名表示
     //ココマラ
