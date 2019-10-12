@@ -1,5 +1,12 @@
-<h1>DM</h1>
-<h2>comments</h2>
+<% @entries.each do |e| %>
+  <% if e.user == current_user.id %>
+  <% else %>
+    <% if e.user.image.attached? %>
+      <%= image_tag e.user.image , size: "100x100"    %>
+    <% end %>
+    <%= e.user.name %>
+  <% end %>
+<% end %>
 
 <div id='chat'>
   <% @room_comments.each do |room_comment| %>
