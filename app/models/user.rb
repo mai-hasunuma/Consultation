@@ -23,6 +23,9 @@ class User < ApplicationRecord
   # DM
   has_many :entries, dependent: :destroy
   has_many :room_comments, dependent: :destroy
+  # 多対多
+  has_many :entry_rooms, :through => :entries, source: :room
+  has_many :room_comment_rooms, :through => :room_comments, source: :room
 
   #通知モデルにいいねをつけた人のuser_id(visiter_id)を入れるための関連付け
   has_many :active_notifications, class_name: "Notification", foreign_key: "visiter_id", dependent: :destroy

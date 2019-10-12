@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   get 'rooms/show'
   get 'rooms/index'
   get 'boards/show'
@@ -14,6 +16,12 @@ Rails.application.routes.draw do
   # board
   resources :boards, only: [:new, :create, :edit, :update, :index, :show]
   get 'search', to: 'boards#search'
+
+  # room
+  resources :rooms, only: [:create, :show, :index]
+
+  # room_comment
+  resources :room_comments, only: [:create]
 
   #actioncable
   mount ActionCable.server => '/cable'

@@ -23,3 +23,10 @@ function postBoardMessage() {
   App.board.speak(element.value);
   element.value = '';
 }
+
+function postRoomMessage() {
+  event.preventDefault();
+  var element = document.querySelector('input[type="text"]');
+  App.room.speak(element.value);
+  element.value = '';
+}

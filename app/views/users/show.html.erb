@@ -1,4 +1,19 @@
 <h1>ユーザ詳細画面</h1>
+  <% if @user == current_user %>
+    <%= link_to "ユーザ編集", edit_user_path %>
+  <% else %>
+    <% if @isRoom == true %>
+      <p><a href="/rooms/<%= @roomId %>">DMを送る</a></p>
+    <% else %>
+      <%= form_for @room do |f| %>
+        <%= fields_for @entry do |e| %>
+          <%= e.hidden_field :user_id, :value=> @user.id %>
+        <% end %>
+        <%= f.submit 'DMを送る' %>
+      <% end %>
+    <% end %>
+  <% end %>
+
   <% if @user.image.attached? %>
     <%= image_tag @user.image %>
   <% end %>

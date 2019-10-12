@@ -1,2 +1,12 @@
-<h1>Rooms#index</h1>
-<p>Find me in app/views/rooms/index.html.erb</p>
+<h1>DM一覧画面</h1>
+<% current_user.entry_rooms.each do |r| %>
+  <% r.entries.each do |e| %>
+    <% if e.user_id == current_user.id %>
+    <% else %>
+      <% if e.user.image.attached? %>
+        <%= image_tag e.user.image %>
+      <% end %>
+      <%= e.user.name %>
+    <% end %>
+  <% end %>
+<% end %>
