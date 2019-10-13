@@ -1,4 +1,4 @@
 class Notification < ApplicationRecord
   validates :action, presence: true
-  valodates :check. presence: true
+  validates :check, presence: true
 end
