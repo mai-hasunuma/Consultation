@@ -33,12 +33,14 @@ ActiveAdmin.register User do
   form do |f|
       f.inputs "Users" do
         f.input :email
-        f.input :password
         f.input :name
         f.input :housewife_year
         f.input :image, :as => :file
         f.input :introduction
+        f.input :current_trouble_categories, as: :check_boxes
+        f.input :past_trouble_categories, as: :check_boxes
         f.input :deleted_at
+        f.input :password
       end
       f.actions
     end
