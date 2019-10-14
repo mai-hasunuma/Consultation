@@ -22,7 +22,6 @@ ActiveAdmin.register Board do
   filter :board_categories
   filter :board_comments
 
-  # 反映されず、不明
   show do |board|
     attributes_table(*board.class.columns.collect { |column| column.name.to_sym })
     panel "コメント一覧" do
