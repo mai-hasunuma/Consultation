@@ -1,14 +1,14 @@
 class Board < ApplicationRecord
   validates :title, presence: true
   validates :content, presence: true
-  # activeadminでboardページの中でboard_commentsを編集、削除できるようにするため
-  accepts_nested_attributes_for :board_comments, allow_destroy: true
-
   # 掲示板
   has_many_attached :images
   has_many :board_selected_categories, dependent: :destroy
   has_many :board_categories, :through => :board_selected_categories
   has_many :board_comments, dependent: :destroy
+  # activeadminでboardページの中でboard_commentsを編集、削除できるようにするため
+  accepts_nested_attributes_for :board_comments, allow_destroy: true
+
 
   belongs_to :user
 
