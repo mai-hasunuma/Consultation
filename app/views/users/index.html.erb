@@ -11,4 +11,9 @@
   <%= truncate(user.introduction, length: 20) do %>
     <%= link_to '続きを読む', user_path(user) %>
   <% end %>
+
+<h2>おすすめユーザ</h2>
+  <%= @recommended_order.each {|key, value|
+    puts "%sは%sですっ！" % [key, value]
+  } %>
 <% end %>
