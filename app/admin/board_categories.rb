@@ -6,15 +6,20 @@ ActiveAdmin.register BoardCategory do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :name
-   index do
+
+
+  index do
     selectable_column
     id_column
     column :name
     column :created_at
     column :updated_at
     actions
-    end
-  #
+  end
+  
+    filter :name
+    filter :created_at
+    filter :updated_at
   # or
   #
   # permit_params do

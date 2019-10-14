@@ -33,4 +33,6 @@ class User < ApplicationRecord
   # 相手からの通知
   has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
 
+  acts_as_paranoid
+
 end

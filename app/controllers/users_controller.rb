@@ -62,6 +62,7 @@ class UsersController < ApplicationController
         matched_current_trouble_ids = current_user_current_trouble_ids & other_user_current_trouble_ids
         matched_current_trouble_count_hash.merge!(user.id => matched_current_trouble_ids.count)
       end
+    end
       Hash[ matched_current_trouble_count_hash.sort.reverse ]
     @q = User.ransack(params[:q])
     @trouble_categories = TroubleCategory.all
