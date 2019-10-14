@@ -21,6 +21,14 @@ ActiveAdmin.register User do
     actions
   end
 
+  filter :current_trouble_categories
+  filter :past_trouble_categories
+  filter :email
+  filter :name
+  filter :housewife_year
+  filter :introduction
+
+
   form do |f|
       f.inputs "Users" do
         f.input :email
