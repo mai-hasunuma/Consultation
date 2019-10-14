@@ -6,6 +6,22 @@ ActiveAdmin.register Board do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :title, :content, :image
+  index do
+    selectable_column
+    id_column
+    column :user
+    column :title
+    column :content
+    column :created_at
+    column :updated_at
+    actions
+  end
+
+  filter :title
+  filter :content
+  filter :board_categories
+  filter :board_comments
+
   # 反映されず、不明
   show do |board|
     attributes_table(*board.class.columns.collect { |column| column.name.to_sym })
