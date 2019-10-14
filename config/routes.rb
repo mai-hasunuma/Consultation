@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'notifications/index'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   get 'rooms/show'
@@ -21,7 +22,10 @@ Rails.application.routes.draw do
   resources :rooms, only: [:create, :show, :index]
 
   # room_comment
-  resources :room_comments, only: [:create]
+  resources :room_comments, only: :create
+
+  # notification
+  resources :notifications, only: :index
 
   #actioncable
   mount ActionCable.server => '/cable'
