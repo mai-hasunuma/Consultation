@@ -4,7 +4,7 @@
     <% if e.user_id == current_user.id %>
     <% else %>
       <% if e.user.image.attached? %>
-        <%= image_tag e.user.image %>
+        <%= image_tag e.user.image, size: "100x100"  %>
       <% end %>
       <%= e.user.name %>
     <% end %>

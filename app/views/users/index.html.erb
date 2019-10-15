@@ -4,16 +4,21 @@
 
 <% @users.each do |user| %>
   <% if user.image.attached? %>
-    <%= image_tag user.image %>
+    <%= image_tag user.image, size: "100x100" %>
   <% end %>
   <%= user.name %>
   <%= user.housewife_year %>
   <%= truncate(user.introduction, length: 20) do %>
     <%= link_to '続きを読む', user_path(user) %>
   <% end %>
+<% end %>
 
 <h2>おすすめユーザ</h2>
-  <%= @recommended_order.each {|key, value|
-    puts "%sは%sですっ！" % [key, value]
-  } %>
-<% end %>
+  <%#= @recommended_order.each {|key, value|} %>
+  <% @recommended_order.first(5).each do |key, value| %>
+  <% user = User.find(key) %>
+    <% if user.image.attached? %>
+      <%= image_tag user.image, size: "100x100" %>
+    <% end %>
+    <%= user.name %></br>
+  <% end %>

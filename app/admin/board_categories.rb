@@ -24,7 +24,7 @@ ActiveAdmin.register BoardCategory do
   #
   # permit_params do
   #   permitted = [:name]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
+  #   permitted << :other if params[:action] == dmin'create' && current_user.admin?
   #   permitted
   # end
 
