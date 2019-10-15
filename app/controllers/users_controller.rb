@@ -56,6 +56,7 @@ class UsersController < ApplicationController
     current_user_current_trouble_ids = current_user.current_trouble_category_ids
     users = User.all
     matched_current_trouble_count_hash = {}
+    # おすすめユーザ表示
     users.each do |user|
       unless user == current_user
         other_user_current_trouble_ids = user.past_trouble_category_ids
@@ -63,7 +64,8 @@ class UsersController < ApplicationController
         matched_current_trouble_count_hash.merge!(user.id => matched_current_trouble_ids.count)
       end
     end
-    @recommended_order = Hash[ matched_current_trouble_count_hash.sort.reverse ]
+    # value順に並び替える　.sort_by{ |_, v| -v } https://qiita.com/mnishiguchi/items/9095ac989ed7d51fe395
+    @recommended_order = Hash[ matched_current_trouble_count_hash.sort_by{ |_, v| -v } ]
     @q = User.ransack(params[:q])
     @trouble_categories = TroubleCategory.all
     @users = @q.result(distinct: true)
