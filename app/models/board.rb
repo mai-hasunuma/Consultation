@@ -11,30 +11,34 @@ class Board < ApplicationRecord
 
 
   belongs_to :user
-
-  def create_notification_comment!(current_user, comment_id)
+  # 掲示板コメント通知
+  # 下のcurrent_userはdef以下でcurrent_userを使うために引数として定義している
+  def create_notification_board_comment!(current_user, board_comment_id)
     # 自分以外にコメントしている人をすべて取得し、全員に通知を送る
-    # Comment.select(:user_id):BoardCommentテーブルのユーザidを取得
-    temp_ids = BoardComment.select(:user_id).where(board_id: id).where.not(user_id: current_user.id).distinct
-    temp_ids.each do |temp_id|
-      save_notification_comment!(current_user, board_comment_id, temp_id['user_id'])
+    # Comment.select(:user_id):BoardCommentテーブルのユーザidを取得する。
+    # where(board_id: self.id).where.not(user_id: current_user.id).distinct :board_idは自分自身(@board)のid、かつカレントユーザ以外を取りたい
+    other_user_ids = BoardComment.select(:user_id).where(board_id: self.id).where.not(user_id: current_user.id).distinct
+    # each文で回す
+    other_user_ids.each do |temp_id|
+      save_notification_board_comment!(current_user, board_comment_id, temp_id['user_id'])
     end
     # まだ誰もコメントしていない場合は、投稿者に通知を送る
-    save_notification_comment!(current_user, board_comment_id, user_id) if temp_ids.blank?
+    save_notification_board_comment!(current_user, board_comment_id, self.user_id) if other_user_ids.blank?
   end
 
-  def save_notification_comment!(current_user, comment_id, visited_id)
+  def save_notification_board_comment!(current_user, board_comment_id, visited_id)
     #コメントは複数回することが考えられる為、一つの投稿に複数回通知する
+    #カレントユーザーのactive_notificationsを作る→visitoridはcurrent_userになる
     notification = current_user.active_notifications.new(
-      board_id: id,
       board_comment_id: board_comment_id,
       visited_id: visited_id,
-      action: 'board_comment'
+      action: 'board_comment',
+      check: "false"
     )
     # 自分の投稿に対するコメントの場合は通知済みとする
     if notification.visitor_id == notification.visited_id
-      notification.checked = true
+      notification.check = true
     end
-    notification.save if notification.valid?
+    notification.save! if notification.valid?
     end
 end

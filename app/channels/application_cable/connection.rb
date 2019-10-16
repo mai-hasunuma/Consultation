@@ -3,13 +3,17 @@ module ApplicationCable
     identified_by :current_user
     def connect
       self.current_user = find_verified_user
+      logger.add_tags 'ActionCable', current_user.email
     end
 
     private
-      def find_verified_user
-        verified_user = User.find_by(id: env['warden'].user.id)
-        return reject_unauthorized_connection unless verified_user
+    def find_verified_user
+      verified_user = User.find_by(id: cookies.signed['user.id'])
+      if verified_user && cookies.signed['user.expires_at'] > Time.now
         verified_user
+      else
+        reject_unauthorized_connection
       end
     end
+  end
 end

@@ -26,7 +26,13 @@ App.board = App.cable.subscriptions.create("BoardChannel", {
 
 　　 // プロフィール画像表示
     var newUserImage = document.createElement('img');
-    newUserImage.src = data.image;
+    if(data.image){
+      newUserImage.src = data.image;
+    }else{
+      newUserImage.src = "/no_image.png";
+      newUserImage.width = 40;
+      newUserImage.height = 40;
+    };
     chat.appendChild(newUserImage);
 
     //以下ユーザ名表示

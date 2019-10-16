@@ -15,7 +15,6 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
-//= require turbolinks
 //= require_tree .
 function postBoardMessage() {
   event.preventDefault();

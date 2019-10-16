@@ -1,0 +1,27 @@
+<% visitor = notification.visitor %>
+<% visited = notification.visited %>
+<span>
+  <%= link_to user_path(visitor) do %>
+    <% if user.image.attached? %>
+      <%= image_tag visitor.image, size: "100x100" %>
+    <% end %>
+    <strong><%= visitor.name %></strong>
+  <% end %>
+  さんが
+  <% case notification.action %>
+    <% when 'board_comment' then %>
+      <% if notification.board.user_id == visited.id %>
+        <%= link_to 'あなたの投稿', notification.board %>
+      <% else %>
+        <span>
+          <%= link_to board_path(notification.board) do %>
+            <% if user.image.attached? %>
+              <%= image_tag notification.board.user.image, size: "100x100" %>
+            <% end %>
+            <strong><%= notification.board.user.name %>さんの投稿</strong>にコメントしました
+            <p><%= BoardComment.find_by(id: notification.board_comment_id)&.board_comment %></p>
+          <% end %>
+        </span>
+      <% end %>
+    <% end %>
+</span>
