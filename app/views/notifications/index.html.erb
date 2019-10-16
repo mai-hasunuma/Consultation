@@ -1,2 +1,36 @@
-<h1>Notifications#index</h1>
-<p>Find me in app/views/notifications/index.html.erb</p>
+<h1>通知一覧</h1>
+
+  <% notifications = @notifications.where.not(visitor_id: current_user.id) %>
+  <% if notifications.exists? %>
+    <% notifications.each do |notification| %>
+      <% visitor = notification.visitor %>
+      <% visited = notification.visited %>
+      <span>
+        <%= link_to user_path(visitor) do %>
+          <% if visitor.image.attached? %>
+            <%= image_tag visitor.image, size: "100x100" %>
+          <% end %>
+          <strong><%= visitor.name %></strong>
+        <% end %>
+        さんが
+        <% case notification.action %>
+          <% when 'board_comment' then %>
+            <% if notification.board_comment.user_id == visited.id %>
+              <%= link_to 'あなたの作成した掲示板', notification.board %>
+            <% else %>
+              <span>
+                <%= link_to board_path(notification.board_comment.board) do %>
+                  <% if notification.board_comment.board.user.image.attached? %>
+                    <%= image_tag notification.board_comment.board.user.image, size: "100x100" %>
+                  <% end %>
+                  <strong><%= notification.board_comment.board.user.name %>さんの掲示板</strong>にコメントしました
+                <% end %>
+              </span>
+            <% end %>
+          <% end %>
+      </span>
+    <% end %>
+    <%= paginate notifications %>
+  <% else %>
+    <p>通知はありません</p>
+  <% end %>

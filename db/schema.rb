@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_14_073914) do
+ActiveRecord::Schema.define(version: 2019_10_15_062651) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 2019_10_14_073914) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.integer "visiter_id"
+    t.integer "visitor_id"
     t.integer "visited_id"
     t.integer "board_comment_id"
     t.integer "room_comment_id"
@@ -158,7 +158,6 @@ ActiveRecord::Schema.define(version: 2019_10_14_073914) do
     t.datetime "deleted_at"
     t.string "name"
     t.integer "housewife_year"
-    t.string "image"
     t.text "introduction"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true

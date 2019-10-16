@@ -27,10 +27,15 @@
 <div id='chat'>
   <% @board_comments.each do |board_comment| %>
     <%= board_comment.content %>
-    <% image = board_comment.user.image %>
-    <% image_url = Rails.application.routes.url_helpers.polymorphic_url(image) %>
-<!--     rubyの式を書く時はこのようにする -->
-    <img src=<%= image_url %>>
+    <% if board_comment.user.image.attached? %>
+      <%= image_tag url_for(board_comment.user.image) %>
+    <% else %>
+      <%= image_tag "no_image.png", size: 40 %>
+      <%# image = board_comment.user.image %>
+      <%# image_url = Rails.application.routes.url_helpers.polymorphic_url(image) %>
+  <!--     rubyの式を書く時はこのようにする -->
+      <!-- <img src=<%#= image_url %>> -->
+    <% end %>
     <p><%= board_comment.user.name %></p>
     <% end %>
 </div>

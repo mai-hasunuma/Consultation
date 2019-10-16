@@ -27,13 +27,12 @@ class BoardsController < ApplicationController
   def update
     @board = Board.find(params[:id])
     @board.update(board_params)
-    binding.pry
     redirect_to board_path(@board)
   end
 
   def show
     @board = Board.find(params[:id])
-    @board_comments = BoardComment.all
+    @board_comments = @board.board_comments
   end
 
   def index
