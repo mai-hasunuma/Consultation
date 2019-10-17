@@ -71,6 +71,6 @@ gem 'rails-i18n'
 gem 'paranoia'
 gem "active_admin_paranoia" , '~> 1.0.11'
 
-group :production do
-  gem 'mysql2'
-end
+# group :production do
+#   gem 'mysql2'
+# end
