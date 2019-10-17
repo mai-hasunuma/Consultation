@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_15_062651) do
+ActiveRecord::Schema.define(version: 2019_10_17_084543) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2019_10_15_062651) do
   create_table "board_comments", force: :cascade do |t|
     t.integer "board_id"
     t.integer "user_id"
-    t.text "content", default: "", null: false
+    t.text "content"
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2019_10_15_062651) do
   create_table "boards", force: :cascade do |t|
     t.integer "user_id"
     t.string "title", default: "", null: false
-    t.text "content", default: "", null: false
+    t.text "content"
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 2019_10_15_062651) do
   create_table "room_comments", force: :cascade do |t|
     t.integer "room_id"
     t.integer "user_id"
-    t.text "content", default: "", null: false
+    t.text "content"
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

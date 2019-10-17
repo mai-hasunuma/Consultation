@@ -3,7 +3,7 @@ class CreateBoardComments < ActiveRecord::Migration[5.2]
     create_table :board_comments do |t|
       t.integer :board_id
       t.integer :user_id
-      t.text :content, null: false, default: ""
+      t.text :content
       t.string :image
 
       t.timestamps
