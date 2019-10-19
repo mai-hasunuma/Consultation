@@ -1,31 +1,40 @@
-<h1>スレッド一覧</h1>
+<div class="container-fluid">
+<div class="row">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-10", style="margin-top: 10px;">
+    <h1>スレッド一覧</h1>
 
-<%= link_to "スレッド新規作成", new_board_path %>
+    <a class="btn btn-primary" href="#" role="button">スレッド新規作成</a>
 
-<%= render 'shared/board_search_form'  %>
+    <%= link_to "スレッド新規作成", new_board_path %>
 
-<p>カテゴリー</p>
-<p>タイトル</p>
+    <%= render 'shared/board_search_form'  %>
 
-<table class="table table-borderless">
-  <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">タイトル</th>
-      <th scope="col">最終更新</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @boards.each do |board| %>
-      <tr>
-        <td><%= board.user.name %></td>
-        <td>
-          <%= link_to board_path(board) do %>
-            <%= board.title %>
-          <% end %>
-        </td>
-        <td><%= board.updated_at.strftime("%Y/%m/%d")  %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <p>カテゴリー</p>
+    <p>タイトル</p>
+
+    <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">タイトル</th>
+          <th scope="col">最終更新</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @boards.each do |board| %>
+          <tr>
+            <td><%= board.user.name %></td>
+            <td>
+              <%= link_to board_path(board) do %>
+                <%= board.title %>
+              <% end %>
+            </td>
+            <td><%= board.updated_at.strftime("%Y/%m/%d")  %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

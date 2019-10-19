@@ -1,50 +1,57 @@
-<h1>ユーザ情報登録</h1>
-<%= form_with model: @user, local: true do |f| %>
-  <div class="field">
-      <%= f.label :name,"名前" %>
-      <%= f.text_field :name, autocomplete: "name", autofocus: true %>
-  </div>
-
-  <div class="field">
-      <%= f.label :housewife_year, "主婦歴" %>
-      <%= f.number_field :housewife_year %>
-  </div>
-
-  <div class="field">
-      <%= f.label :image, "プロフィール画像" %>
-      <%= f.file_field :image %>
-  </div>
-
-  <div class="field">
-      <%= f.label :introduction, "自己紹介" %>
-      <%= f.text_area :introduction %>
-  </div>
-
-  <p>当てはまる項目にチェックをつけてください</p>
-
-  <p>今悩んでいること</p>
-    <div class="field">
-      <!-- 下の行で現在編集している一人のユーザのために、複数のcurrent_troubleテーブルを作成できるようになる -->
-      <!-- collection_check_boxexを使うときはfields_forは不要　 -->
-      <%#= f.fields_for :current_troubles do |ct| %>
-        <!-- c.collection_check_categoryboxesで選択してcreateできるようになる -->
-        <!-- userモデルでhas_many :current_trouble_categories, :through => :current_troubles, source: :trouble_category と記載しているのでcurrent_trouble_category_idにtrouble_categoryを入れることができる -->
-        <%= f.collection_check_boxes :current_trouble_category_ids, @trouble_categories, :id, :name, include_hidden: false  do |b| %>
-          <%=  b.label {b.check_box + b.text}  %>
-        <% end %>
-      <%# end %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-1">
     </div>
-<!-- ,options: {selected: @current_troubles.ids}-->
-  <p>過去悩んでいたこと</p>
-  <div class="field">
-    <%#= f.fields_for :past_troubles do |pt| %>
-      <%= f.collection_check_boxes :past_trouble_category_ids, @trouble_categories, :id, :name, include_hidden: false  do |b| %>
-          <%=  b.label {b.check_box + b.text}  %>
+    <div class="col-md-10", style="margin-top: 20px">
+      <h1>ユーザ情報登録</h1>
+      <%= form_with model: @user, local: true do |f| %>
+        <div class="field">
+            <%= f.label :name,"名前" %>
+            <%= f.text_field :name, autocomplete: "name", autofocus: true, :size=>"20" %>
+        </div>
+
+        <div class="field">
+            <%= f.label :housewife_year, "主婦歴" %>
+            <%= f.number_field :housewife_year, max: 100 %>
+        </div>
+
+        <div class="field">
+            <%= f.label :image, "プロフィール画像" %>
+            <%= f.file_field :image %>
+        </div>
+
+        <div class="field">
+            <%= f.label :introduction, "自己紹介" %><br>
+            <%= f.text_area :introduction, size: "50x5" %>
+        </div>
+
+        <p style="margin-top: 20px">当てはまる項目にチェックをつけてください</p>
+
+        <p style="margin-top: 10px">今悩んでいること</p>
+          <div class="field">
+            <!-- 下の行で現在編集している一人のユーザのために、複数のcurrent_troubleテーブルを作成できるようになる -->
+            <!-- collection_check_boxexを使うときはfields_forは不要　 -->
+            <%#= f.fields_for :current_troubles do |ct| %>
+              <!-- c.collection_check_categoryboxesで選択してcreateできるようになる -->
+              <!-- userモデルでhas_many :current_trouble_categories, :through => :current_troubles, source: :trouble_category と記載しているのでcurrent_trouble_category_idにtrouble_categoryを入れることができる -->
+              <%= f.collection_check_boxes :current_trouble_category_ids, @trouble_categories, :id, :name, include_hidden: false  do |b| %>
+                <%=  b.label {b.check_box + b.text}  %>
+              <% end %>
+            <%# end %>
+          </div>
+      <!-- ,options: {selected: @current_troubles.ids}-->
+        <p style="margin-top: 10px">過去悩んでいたこと</p>
+        <div class="field">
+          <%#= f.fields_for :past_troubles do |pt| %>
+            <%= f.collection_check_boxes :past_trouble_category_ids, @trouble_categories, :id, :name, include_hidden: false  do |b| %>
+                <%=  b.label {b.check_box + b.text}  %>
+            <% end %>
+          <%# end %>
+        </div>
+
+        <%= f.submit '登録' %>
       <% end %>
-    <%# end %>
+    </div>
   </div>
-
-  <%= f.submit '登録' %>
-
-<% end %>
+</div>
 
