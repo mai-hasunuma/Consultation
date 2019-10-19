@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-1">
     </div>
-    <div class="col-md-9">
+    <div class="col-md-11">
       <div class="row", style="margin-top: 20px;">
         <div class="col-md-4">
           <span>カテゴリ</span>
@@ -39,39 +39,84 @@
         </div>
       </div>
       <div class="row">
-        <%= @board.user.name %>
-        <% if @board.user.image.attached? %>
-          <%= image_tag @board.user.image, size: 100 %>
-        <% end %>
-
-        <%= @board.content %>
-      </div>
-      <% if @board.images.attached? %>
-        <% @board.images.each do |image| %>
-          <%= image_tag image %> <br>
-        <% end %>
-      <% end %>
-
-      <div id='chat'>
-        <% @board_comments.each do |board_comment| %>
-          <%= board_comment.content %>
-          <% if board_comment.user.image.attached? %>
-            <%= image_tag url_for(board_comment.user.image) %>
-          <% else %>
-            <%= image_tag "no_image.png", size: 40 %>
-            <%# image = board_comment.user.image %>
-            <%# image_url = Rails.application.routes.url_helpers.polymorphic_url(image) %>
-        <!--     rubyの式を書く時はこのようにする -->
-            <!-- <img src=<%#= image_url %>> -->
+        <div class="col-md-3">
+          <% if @board.user.image.attached? %>
+            <%= image_tag @board.user.image, size: 100 %>
           <% end %>
-          <p><%= board_comment.user.name %></p>
-          <% end %>
+          <p><%= @board.user.name %></p>
+        </div>
+
+        <div class="col-md-9">
+          <%= @board.content %>
+        </div>
       </div>
 
-      <form>
-        投稿： <input type="text" />
-        <input type="submit" value="投稿" onClick="postBoardMessage()" />
-      </form>
+      <div class="row">
+        <% if @board.images.attached? %>
+          <% @board.images.each do |image| %>
+            <%= image_tag image %> <br>
+          <% end %>
+        <% end %>
+      </div>
+
+
+      <div class="col-md-10", style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; height: 350px; overflow: auto;">
+        <div id='chat'>
+          <div class="col-md-12">
+            <% @board_comments.each do |board_comment| %>
+              <% if board_comment.user == current_user %>
+    　　　　　　　<!-- カレントユーザの表示方法 -->
+                <div class="row">
+                    <div class="col-md-7">
+                    </div>
+                    <div class="col-md-3">
+                      <div style="text-align: left;">
+                        <%= board_comment.content %>
+                        <p style="text-align:right;">by <%= board_comment.user.name %></p>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <% if board_comment.user.image.attached? %>
+                        <%= image_tag url_for(board_comment.user.image), size: 50  %>
+                      <% else %>
+                        <%= image_tag "no_image.png", size: 40 %>
+                      <% end %>
+                    </div>
+                  </div>
+              <% else %>
+                <!-- カレントユーザ以外の表示方法 -->
+                <div class="row">
+                  <div class="col-md-1">
+                    <% if board_comment.user.image.attached? %>
+                      <%= image_tag url_for(board_comment.user.image), size: 50  %>
+                    <% else %>
+                      <%= image_tag "no_image.png", size: 40 %>
+                    <% end %>
+                  </div>
+                  <div class="col-md-3">
+                    <%= board_comment.content %>
+                    <p style="text-align:right;">by <%= board_comment.user.name %></p>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-8">
+              <form>
+                <textarea cols="100" rows="3" placeholder="コメントを入力"></textarea>
+                <input type="submit" value="投稿" onClick="postBoardMessage()" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
   </div>
 </div>

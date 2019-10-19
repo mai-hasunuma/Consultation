@@ -16,15 +16,32 @@ App.board = App.cable.subscriptions.create("BoardChannel", {
     var chat = document.getElementById('chat');
     //以下メッセージ作成
     //ココカラ
-    // pタグを作成する
-    var newMessage = document.createElement('span');
-    // .innerText;先ほどnewMessageで作成したpタグの要素の中身をmessageに変える（今回はpタグの中に文字を入れる）
-    newMessage.innerText = data.message;
-    // 親要素　id=chatの中にnewMessageを入れる
-    chat.appendChild(newMessage);
-    //ココマデ
+    var row = document.createElement('div');
+    row.className = "row";
+    var col7 = document.createElement('div');
+    col7.className = "col-md-7"
+    row.appendChild(col7);
 
-　　 // プロフィール画像表示
+    var col3 = document.createElement('div');
+    col3.className = "col-md-3";
+    //debugger
+    var textleft = document.createElement('div');
+    textleft.style = "text-align: left;";
+    textleft.innerText = data.message;
+
+    var username = document.createElement('p');
+    username.style = "text-align: right;";
+    username.innerText = "by " + data.name;
+
+    textleft.appendChild(username);
+
+    col3.appendChild(textleft);
+
+    row.appendChild(col3);
+
+    var col1 = document.createElement('div');
+    col1.className = "col-md-1";
+
     var newUserImage = document.createElement('img');
     if(data.image){
       newUserImage.src = data.image;
@@ -33,15 +50,37 @@ App.board = App.cable.subscriptions.create("BoardChannel", {
       newUserImage.width = 40;
       newUserImage.height = 40;
     };
-    chat.appendChild(newUserImage);
 
-    //以下ユーザ名表示
-    //ココマラ
-    var newUser = document.createElement('p');
-    newUser.innerText = data.name;
-    chat.appendChild(newUser);
-    //ここまで
-  },
+    col1.appendChild(newUserImage);
+
+    row.appendChild(col1);
+
+    chat.appendChild(row);
+
+//     // .innerText;先ほどnewMessageで作成したpタグの要素の中身をmessageに変える（今回はpタグの中に文字を入れる）
+//     newMessage.innerText = data.message;
+//     // 親要素　id=chatの中にnewMessageを入れる
+//     chat.appendChild(newMessage);
+//     //ココマデ
+
+// 　　 // プロフィール画像表示
+//     var newUserImage = document.createElement('img');
+//     if(data.image){
+//       newUserImage.src = data.image;
+//     }else{
+//       newUserImage.src = "/no_image.png";
+//       newUserImage.width = 40;
+//       newUserImage.height = 40;
+//     };
+//     chat.appendChild(newUserImage);
+
+//     //以下ユーザ名表示
+//     //ココマラ
+//     var newUser = document.createElement('p');
+//     newUser.innerText = data.name;
+//     chat.appendChild(newUser);
+//     //ここまで
+   },
 
   speak: function(message) {
     return this.perform('speak', {
