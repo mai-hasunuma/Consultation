@@ -1,7 +1,7 @@
 <%= search_form_for @q, url: users_path do |f| %>
 
   <%= f.label :housewife_year, "主婦歴" %>
-  <%= f.number_field :housewife_year_gteq, min:1, max:100 %>以上〜<br>
+  <%= f.number_field :housewife_year_gteq, min:1, max:100 %>以上〜
   <%= f.number_field :housewife_year_lt, min:1, max:100 %>未満<br>
 
   <%= f.label :introduction, "自己紹介文" %>

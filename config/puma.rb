@@ -41,6 +41,7 @@ pidfile File.join(rails_root, 'tmp', 'pids', 'puma.pid')
 
 state_path File.join(rails_root, 'tmp', 'pids', 'puma.state')
 
+if Rails.env == 'production'
 stdout_redirect(
 
   File.join(rails_root, 'log', 'puma.log'),
@@ -53,3 +54,5 @@ stdout_redirect(
 
 #デーモン
 daemonize
+
+end

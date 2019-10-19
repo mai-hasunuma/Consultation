@@ -13,3 +13,30 @@
   *= require_self
  */
 @import "bootstrap";
+
+$blue: #D0ECFF !default;
+$red: #d03c1b !default;
+$yellow: #F0F17D !default;
+$black: #222 !default;
+$gray: #ECEDE5 !default;
+$purple: #F0F17D !default;
+$pink: #FFCFD2 !default;
+
+$primary: $blue !default;
+$secondary: $gray !default;
+$warning: $yellow !default;
+$info: $pink !default;
+$dark: $black !default;
+$light: $purple !default;
+
+body{
+  background-color: #fff;
+  color: $black;
+}
+
+
+a.user_info{
+  color: $black;
+  text-decoration: none;
+}
+

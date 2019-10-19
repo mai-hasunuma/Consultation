@@ -1,24 +1,45 @@
-<h1>ユーザ一覧</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class=col-md-9>
+      <h1>ユーザ一覧</h1>
+      <%= render 'shared/user_search_form' %>
+      <% @users.each do |user| %>
+        <div class="row user-box" style="margin-top: 20px;">
+          <div class="col-md-2">
+            <%= link_to user_path(user.id) do %>
+              <% if user.image.attached? %>
+                <%= image_tag user.image, size: "100x100" %>
+              <% else %>
+                <%= image_tag "no_image.png", size: "100x100" %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="col-md-9">
+            <%= link_to user_path(user.id),class: 'user_info' do %>
+              <%= user.name %>
+              主婦歴:<%= user.housewife_year %>年<br>
+              <div style="margin-top: 20px;">
+                <%= truncate(user.introduction, length: 40) do %>
+                  <%= link_to '続きを読む', user_path(user) %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
-<%= render 'shared/user_search_form'  %>
-
-<% @users.each do |user| %>
-  <% if user.image.attached? %>
-    <%= image_tag user.image, size: "100x100" %>
-  <% end %>
-  <%= user.name %>
-  <%= user.housewife_year %>
-  <%= truncate(user.introduction, length: 20) do %>
-    <%= link_to '続きを読む', user_path(user) %>
-  <% end %>
-<% end %>
-
-<h2>おすすめユーザ</h2>
-  <%#= @recommended_order.each {|key, value|} %>
-  <% @recommended_order.first(5).each do |key, value| %>
-  <% user = User.find(key) %>
-    <% if user.image.attached? %>
-      <%= image_tag user.image, size: "100x100" %>
-    <% end %>
-    <%= user.name %></br>
-  <% end %>
+    <div class="col-md-3">
+      <h2><%= current_user.name %>さんの<br>おすすめユーザ</h2>
+      <% @recommended_order.first(5).each do |key, value| %>
+        <% user = User.find(key) %>
+        <%= link_to user_path(user.id) do %>
+          <% if user.image.attached? %>
+            <%= image_tag user.image, size: "100x100" %>
+          <% end %>
+          <%= user.name %></br>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
