@@ -18,14 +18,14 @@
 //= require_tree .
 function postBoardMessage() {
   event.preventDefault();
-  var element = document.querySelector('input[type="text"]');
+  var element = document.querySelector('textarea');
   App.board.speak(element.value);
   element.value = '';
 }
 
 function postRoomMessage() {
   event.preventDefault();
-  var element = document.querySelector('input[type="text"]');
+  var element = document.querySelector('textarea');
   App.room.speak(element.value);
   element.value = '';
 }
