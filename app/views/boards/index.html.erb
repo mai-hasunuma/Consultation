@@ -3,35 +3,53 @@
   <div class="col-md-1">
   </div>
   <div class="col-md-10", style="margin-top: 10px;">
-    <h1>スレッド一覧</h1>
+    <div class="row">
+      <div class="col-md-5">
+      <h1>スレッド一覧</h1>
+      </div>
+      <div class="col-md-5">
+        <%= link_to "スレッド新規作成", new_board_path %>
+      </div>
+    </div>
 
-    <a class="btn btn-primary" href="#" role="button">スレッド新規作成</a>
+    <div class="col-md-10", style="margin-top: 10px;">
+      <%= render 'shared/board_search_form'  %>
+    </div>
 
-    <%= link_to "スレッド新規作成", new_board_path %>
 
-    <%= render 'shared/board_search_form'  %>
-
-    <p>カテゴリー</p>
-    <p>タイトル</p>
-
-    <table class="table table-borderless">
+    <table class="table table-borderless", style="margin-top: 30px;">
       <thead>
         <tr>
           <th scope="col"></th>
           <th scope="col">タイトル</th>
-          <th scope="col">最終更新</th>
+          <th scope="col">最終コメント</th>
+          <th scope="col">コメント数</th>
         </tr>
       </thead>
       <tbody>
         <% @boards.each do |board| %>
           <tr>
-            <td><%= board.user.name %></td>
+            <td>
+              <% if board.user.image.attached? %>
+                <%= image_tag url_for(board.user.image), size: 50  %>
+              <% else %>
+                <%= image_tag "no_image.png", size: 50 %>
+              <% end %><br>
+              <%= board.user.name %>
+            </td>
             <td>
               <%= link_to board_path(board) do %>
                 <%= board.title %>
               <% end %>
             </td>
-            <td><%= board.updated_at.strftime("%Y/%m/%d")  %></td>
+            <td>
+              <% if board.board_comments.empty? %>
+                <%= board.updated_at.strftime("%Y/%m/%d") %>
+              <% else %>
+                <%= board.board_comments.last.created_at.strftime("%Y/%m/%d")  %>
+              <% end %>
+            </td>
+            <td><%= board.board_comments.count %></td>
           </tr>
         <% end %>
       </tbody>
