@@ -7,13 +7,44 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <script src="https://kit.fontawesome.com/3429187a4c.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
     <% if user_signed_in? %>
-      <%= link_to destroy_user_session_path, method: :delete do %>
-        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>Log out
-      <% end %>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">主婦のお悩み相談室</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="far fa-bell"></i>通知</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="fas fa-search"></i>ユーザ検索</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="far fa-envelope"></i>DMを見る </a>
+            </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="far fa-user"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">設定</a>
+          <a class="dropdown-item" href="#">マイページ</a>
+          <%= link_to destroy_user_session_path, method: :delete do %>
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>Log out
+          <% end %>
+        </div>
+      </li>
+          </ul>
+        </div>
+      </nav>
+
     <% else %>
       <%= link_to new_user_registration_path do %>
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> sign up

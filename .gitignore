@@ -31,3 +31,5 @@
 /config/master.key
 /config/database.yml
 vendor/bundle/
+/public/uploads/user/image/*
+/public/uploads/tmp/*
