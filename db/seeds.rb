@@ -53,27 +53,27 @@ User.create!(name: "咲", email: "saki@gmail.com", password: "111111", password_
 User.create!(name: "千春", email: "chiharu@gmail.com", password: "111111", password_confirmation: '111111', housewife_year: 25, introduction: "子育て終わりました。皆さんの相談に乗ります")
 User.create!(name: "れいか", email: "reika@gmail.com", password: "111111", password_confirmation: '111111', housewife_year: 13, introduction: "よろしくでーす")
 
-# #ユーザの画像
-# user3 =User.find(3)
-# user3.image.attach(io: File.open('public/3.png'), filename: '3.png')
+#ユーザの画像
+user3 =User.find(3)
+user3.image.attach(io: File.open('public/3.png'), filename: '3.png')
 
-# user4 =User.find(4)
-# user4.image.attach(io: File.open('public/4.png'), filename: '4.png')
+user4 =User.find(4)
+user4.image.attach(io: File.open('public/4.jpg'), filename: '4.jpg')
 
-# user5 =User.find(5)
-# user5.image.attach(io: File.open('public/5.png'), filename: '5.png')
+user5 =User.find(5)
+user5.image.attach(io: File.open('public/5.png'), filename: '5.png')
 
-# user6 =User.find(6)
-# user6.image.attach(io: File.open('public/6.png'), filename: '6.png')
+user6 =User.find(6)
+user6.image.attach(io: File.open('public/6.png'), filename: '6.png')
 
-# user7 =User.find(7)
-# user7.image.attach(io: File.open('public/7.png'), filename: '7.png')
+user7 =User.find(7)
+user7.image.attach(io: File.open('public/7.jpg'), filename: '7.jpg')
 
-# user8 =User.find(8)
-# user8.image.attach(io: File.open('public/8.png'), filename: '8.png')
+user8 =User.find(8)
+user8.image.attach(io: File.open('public/8.jpg'), filename: '8.jpg')
 
-# user9 =User.find(9)
-# user9.image.attach(io: File.open('public/9.png'), filename: '9.png')
+user9 =User.find(9)
+user9.image.attach(io: File.open('public/9.png'), filename: '9.png')
 
-# user10 =User.find(10)
-# user10.attach(io: File.open('public/10.png'), filename: '10.png')
+user10 =User.find(10)
+user10.image.attach(io: File.open('public/10.jpg'), filename: '10.jpg')
