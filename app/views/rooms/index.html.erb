@@ -1,12 +1,36 @@
-<h1>DM一覧画面</h1>
-<% current_user.entry_rooms.each do |r| %>
-  <% r.entries.each do |e| %>
-    <% if e.user_id == current_user.id %>
-    <% else %>
-      <% if e.user.image.attached? %>
-        <%= image_tag e.user.image, size: "100x100"  %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-8", style="margin: 20px 0 20px 0;">
+      <h1><%= current_user.name %>さんの　DM一覧画面</h1>
+      <% current_user.entry_rooms.each do |r| %>
+        <% r.entries.each do |e| %>
+          <% unless e.user_id == current_user.id %>
+            <%= link_to room_path(r) do %>
+              <div class="row", style="margin-top: 20px; border: 1px solid black; padding: 10px; text-decoration: none; color: black;">
+                <div class="col-md-2">
+                  <% if e.user.image.attached? %>
+                    <%= image_tag e.user.image, size: "100x100" %>
+                  <% else %>
+                    <%= image_tag "no_image.png", size: "100x100" %>
+                  <% end %>
+                </div>
+                <div class="col-md-5">
+                  <p style="margin: 10px 0 0 20px;"><%= e.user.name %></p>
+                  <% if e.room.room_comments.exists? %>
+                    <p style="margin: 10px 0 0 20px;"><%= e.room.room_comments.last.content %></p>
+                    <p style="margin: 10px 0 0 20px;"><%= e.room.room_comments.last.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+                  <% else %>
+                     <p style="margin: 10px 0 0 20px;"><%= "会話がまだありません" %></p>
+                  <% end %>
+                </div>
+                <div class="col-md-6">
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
       <% end %>
-      <%= e.user.name %>
-    <% end %>
-  <% end %>
-<% end %>
+    </div>
+  </div>
+</div>

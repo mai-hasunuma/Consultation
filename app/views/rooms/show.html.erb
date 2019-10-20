@@ -1,22 +1,88 @@
-<% @entries.each do |e| %>
-  <% if e.user == current_user.id %>
-  <% else %>
-    <% if e.user.image.attached? %>
-      <%= image_tag e.user.image , size: "100x100"    %>
-    <% end %>
-    <%= e.user.name %>
-  <% end %>
-<% end %>
-
-<div id='chat'>
-  <% @room_comments.each do |room_comment| %>
-    <%= room_comment.content %>
-    <p><%= room_comment.user.name %></p>
-  <% end %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-11">
+      <p><%= link_to "DM一覧に戻る", rooms_path %></p>
+      <div class="row">
+        <% @entries.each do |e| %>
+          <% unless e.user == current_user %>
+            <% if e.user.image.attached? %>
+              <div class="col-md-2">
+                <%= link_to user_path(e.user) do %>
+                  <%= image_tag e.user.image , size: "50x50" %>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="col-md-2">
+                <%= link_to user_path(e.user) do %>
+                  <%= image_tag "no_image.png", size: "50x50" %>
+                <% end %>
+              </div>
+            <% end %>
+            <div class="col-md-5">
+              <%= link_to user_path(e.user) do %>
+                <h1 class="name"><%= e.user.name %></h1>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col-md-10", style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; height: 500px; overflow: auto;">
+        <div id='chat'>
+          <div class="col-md-12">
+            <% @room_comments.each do |room_comment| %>
+              <% if room_comment.user == current_user %>
+    　　　　　　　<!-- カレントユーザの表示方法 -->
+                <div class="row">
+                    <div class="col-md-7">
+                    </div>
+                    <div class="col-md-3">
+                      <div style="text-align: left;">
+                        <%= room_comment.content %>
+                        <p style="text-align:right;">by <%= room_comment.user.name %></p>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <% if room_comment.user.image.attached? %>
+                        <%= image_tag url_for(room_comment.user.image), size: 50  %>
+                      <% else %>
+                        <%= image_tag "no_image.png", size: 40 %>
+                      <% end %>
+                    </div>
+                  </div>
+              <% else %>
+                <!-- カレントユーザ以外の表示方法 -->
+                <div class="row">
+                  <div class="col-md-1">
+                    <% if room_comment.user.image.attached? %>
+                      <%= image_tag url_for(room_comment.user.image), size: 50  %>
+                    <% else %>
+                      <%= image_tag "no_image.png", size: 40 %>
+                    <% end %>
+                  </div>
+                  <div class="col-md-3">
+                    <%= room_comment.content %>
+                    <p style="text-align:right;">by <%= room_comment.user.name %></p>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-8">
+              <form>
+                <textarea cols="100" rows="3" placeholder="コメントを入力"></textarea>
+                <input type="submit" value="投稿" onClick="postRoomMessage()" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<form>
-  投稿： <input type="text" />
-  <input type="submit" value="投稿" onClick="postRoomMessage()" />
-</form>
-

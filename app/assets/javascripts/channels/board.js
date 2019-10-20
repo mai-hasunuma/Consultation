@@ -19,7 +19,7 @@ App.board = App.cable.subscriptions.create("BoardChannel", {
     var row = document.createElement('div');
     row.className = "row";
     var col7 = document.createElement('div');
-    col7.className = "col-md-7"
+    col7.className = "col-md-7";
     row.appendChild(col7);
 
     var col3 = document.createElement('div');
