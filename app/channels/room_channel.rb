@@ -8,9 +8,15 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def speak(data)
-    room_comment = RoomComment.create!(user_id: current_user.id, room_id: data['room_id'], content: data['message'])
-    image = User.find(current_user.id).image
-    ActionCable.server.broadcast 'room_channel', {name: current_user.name, message: data['message'], image: Rails.application.routes.url_helpers.polymorphic_url(image)}
+    room_comment = RoomComment.new(user_id: current_user.id, room_id: data['room_id'], content: data['message'])
+    room_comment.save!
+    room = room_comment.room
+    room.create_notification_room_comment!(current_user, room_comment.id)
+    image = current_user.image
+    if current_user.image.attached?
+      ActionCable.server.broadcast 'room_channel', {name: current_user.name, message: data['message'], image: Rails.application.routes.url_helpers.polymorphic_url(image)}
+    else
+      ActionCable.server.broadcast 'room_channel', {name: current_user.name, message: data['message'], image: nil}
+    end
   end
 end
-
