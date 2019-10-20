@@ -42,8 +42,6 @@ AdminUser.create!(email: 'admin@example.com', password: 'password', password_con
 
 # ユーザ
 User.delete_all
-User.create!(name: "aaaaaa", email: "aaa@aaa", password: "aaaaaa", password_confirmation: 'aaaaaa', housewife_year: 2) if Rails.env.development?
-User.create!(name: "bbbbbb", email: "bbb@bbb", password: "bbbbbb", password_confirmation: 'bbbbbb', housewife_year: 3) if Rails.env.development?
 User.create!(name: "みゆう", email: "miyu@gmail.com", password: "111111", password_confirmation: '111111', housewife_year: 4, introduction: "一児の母です！最近は保活してます。よろしくお願いします。")
 User.create!(name: "まさん", email: "mai@gmail.com", password: "111111", password_confirmation: '111111', housewife_year: 10, introduction: "次小学校に上がる息子がいますよろしくお願いします。")
 User.create!(name: "トントン", email: "tonton@gmail.com", password: "111111", password_confirmation: '111111', housewife_year: 20, introduction: "仕事しながら子育てしてますよろしくお願いします。")
@@ -54,26 +52,26 @@ User.create!(name: "千春", email: "chiharu@gmail.com", password: "111111", pas
 User.create!(name: "れいか", email: "reika@gmail.com", password: "111111", password_confirmation: '111111', housewife_year: 13, introduction: "よろしくでーす")
 
 #ユーザの画像
-user3 =User.find(3)
+user3 =User.find(1)
 user3.image.attach(io: File.open('public/3.png'), filename: '3.png')
 
-user4 =User.find(4)
+user4 =User.find(2)
 user4.image.attach(io: File.open('public/4.jpg'), filename: '4.jpg')
 
-user5 =User.find(5)
+user5 =User.find(3)
 user5.image.attach(io: File.open('public/5.png'), filename: '5.png')
 
-user6 =User.find(6)
+user6 =User.find(4)
 user6.image.attach(io: File.open('public/6.png'), filename: '6.png')
 
-user7 =User.find(7)
+user7 =User.find(5)
 user7.image.attach(io: File.open('public/7.jpg'), filename: '7.jpg')
 
-user8 =User.find(8)
+user8 =User.find(6)
 user8.image.attach(io: File.open('public/8.jpg'), filename: '8.jpg')
 
-user9 =User.find(9)
+user9 =User.find(7)
 user9.image.attach(io: File.open('public/9.png'), filename: '9.png')
 
-user10 =User.find(10)
+user10 =User.find(8)
 user10.image.attach(io: File.open('public/10.jpg'), filename: '10.jpg')
