@@ -13,7 +13,7 @@
   <body>
     <% if user_signed_in? %>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">主婦のお悩み相談室</a>
+        <a class="navbar-brand" href="/users">主婦のお悩み相談室</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,48 +21,64 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <%= link_to notifications_path do %>
+              <%= link_to notifications_path, class: "nav-link",  style: "position: relative;" do %>
                 <% if unchecked_notifications.any? %>
-                  <span>
-                    <i class="far fa-bell fa-lg fa-stack-2x" style="font-size: 1.5em;">通知</i>
-                    <i class="fas fa-circle n-circle fa-stack-1x"></i>
-                  </span>
+                  <i class="fas fa-circle" style="position: absolute; top: 0; left: 0; color: #efa04c; font-size: 1em;"></i>
+                  <i class="far fa-bell fa-lg" style="font-size: 1.5em;"></i>通知
                 <% else %>
                   <i class="far fa-bell fa-lg" style="font-size: 1.5em;"></i>通知
                 <% end %>
               <% end %>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fas fa-search"></i>ユーザ検索</a>
+              <a class="nav-link" href="/users"><i class="fas fa-search"></i>ユーザ検索</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="far fa-envelope"></i>DMを見る </a>
+              <a class="nav-link" href="/rooms"><i class="far fa-envelope"></i>DMを見る </a>
             </li>
-          </ul>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="far fa-user"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">設定</a>
-          <a class="dropdown-item" href="#">マイページ</a>
-          <%= link_to destroy_user_session_path, method: :delete do %>
-            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>Log out
-          <% end %>
-        </div>
-      </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-user"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <%= link_to edit_user_path(current_user), class:"dropdown-item" do %>
+                  設定
+                <% end %>
+                <%= link_to user_path(current_user), class:"dropdown-item" do %>
+                  マイページ
+                <% end %>
+                <%= link_to destroy_user_session_path, method: :delete, class:"dropdown-item"  do %>
+                  Log out
+                <% end %>
+              </div>
+            </li>
           </ul>
         </div>
       </nav>
 
     <% else %>
-      <%= link_to new_user_registration_path do %>
-        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> sign up
-        <% end %>
 
-      <%= link_to new_user_session_path do %>
-        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> login
-        <% end %>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">主婦のお悩み相談室</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <%= link_to new_user_session_path, class: "nav-link" do %>
+                <i class="fas fa-sign-in-alt"></i>ログイン
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to new_user_registration_path, class: "nav-link" do %>
+                <i class="fas fa-user-plus"></i>会員登録
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </nav>
     <% end %>
 
     <%= yield %>
