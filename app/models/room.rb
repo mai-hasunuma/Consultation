@@ -21,10 +21,9 @@ class Room < ApplicationRecord
   end
 
   def save_notification_room_comment!(current_user, room_comment_id, visited_id)
-
     notification = current_user.active_notifications.new(
       room_comment_id: room_comment_id,
-      visited_id: visited_id,
+      visited_id: visited_id.user_id,
       action: 'room_comment',
       check: "false"
     )

@@ -13,17 +13,36 @@ class Board < ApplicationRecord
   belongs_to :user
   # 掲示板コメント通知
   # 下のcurrent_userはdef以下でcurrent_userを使うために引数として定義している
-  def create_notification_board_comment!(current_user, board_comment_id)
+  def create_notification_board_comment!(write_user, board_comment_id)
+    # current_user 書き込み者
+    # self.user_id ログインしてる人
+    # owner=掲示板所有者　owner_comment は掲示板作成者のコメントか、というフラグ
+    owner_comment = false
+    # 掲示板のオーナー
+    board_owner_id =  BoardComment.find(board_comment_id).board.user_id
     # 自分以外にコメントしている人をすべて取得し、全員に通知を送る
     # Comment.select(:user_id):BoardCommentテーブルのユーザidを取得する。
     # where(board_id: self.id).where.not(user_id: current_user.id).distinct :board_idは自分自身(@board)のid、かつカレントユーザ以外を取りたい
-    other_user_ids = BoardComment.select(:user_id).where(board_id: self.id).where.not(user_id: current_user.id).distinct
-    # each文で回す
-    other_user_ids.each do |temp_id|
-      save_notification_board_comment!(current_user, board_comment_id, temp_id['user_id'])
+    board_writed_users = BoardComment.select(:user_id).where(board_id: self.id).where.not(user_id: write_user.id).distinct
+    # 掲示板にコメントしたことがあるユーザたち
+    board_writed_users.each do |writed_user|
+      # いま書き込みをした人が過去書き込みをしたことがなければ　通知を作成して保存する
+      if write_user.id != writed_user.id
+        save_notification_board_comment!(write_user, board_comment_id, writed_user['user_id'])
+      end
+      # 過去書き込みがあった人が掲示板ユーザと同一ならば
+      if writed_user.user_id == board_owner_id
+        owner_comment = true
+      end
     end
-    # まだ誰もコメントしていない場合は、投稿者に通知を送る
-    save_notification_board_comment!(current_user, board_comment_id, self.user_id) if other_user_ids.blank?
+
+    # board_writed_usersに掲示板作成者がいなければ投稿者本人に通知を送る
+    if board_writed_users.blank? && !owner_comment
+      save_notification_board_comment!(write_user, board_comment_id, board_owner_id)
+    end
+    if board_writed_users.exists? && !owner_comment
+      save_notification_board_comment!(write_user, board_comment_id, board_owner_id)
+    end
   end
 
   def save_notification_board_comment!(current_user, board_comment_id, visited_id)

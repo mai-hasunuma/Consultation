@@ -1,12 +1,13 @@
-<% visitor=notification.visiter %>
+<% visitor=notification.visitor %>
 
-<div class="user-view clearfix ">
+<div class="user-view clearfix" style="margin-top: 30px;">
   <%= link_to user_path(notification.visitor) do %>
-    <%=  image_tag notification.visitor.image[:small].url, class:"user-thumb", style:"width: 60px;"%>
+    <% if notification.visitor.image.attached? %>
+      <%=  image_tag notification.visitor.image, size: "40x40" %>
+    <% else %>
+      <%= image_tag "no_image.png", size: "40x40" %>
+    <% end %>
   <% end %>
-  <%= notification_form(notification) %><span class="moderate-font"><%= " (#{time_ago_in_words(notification.created_at)}前)" %></span>
+  <%== notification_form(notification) %><span class="moderate-font"><%= " (#{time_ago_in_words(notification.created_at)}前)" %></span>
   <br>
-  <% if !@comment.nil? %>
-    <p class="moderate-font"><%= @comment %></p>
-  <% end %>
 </div>
