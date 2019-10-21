@@ -1,0 +1,3 @@
+ja:
+  active_admin_paranoia:
+    non_archived: "存在するユーザ"

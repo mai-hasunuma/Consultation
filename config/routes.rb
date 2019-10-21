@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   root 'home#top'
 
   #end_user
-  resources :users, only: [:index, :show, :edit, :update]
+  resources :users, only: [:index, :edit, :update, :destroy, :show]
   get 'search', to: 'users#search'
 
   # board
