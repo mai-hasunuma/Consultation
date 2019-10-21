@@ -76,6 +76,13 @@ class UsersController < ApplicationController
     @users = @q.result(distinct: true)
   end
 
+  def destroy
+    current_user.destroy
+    #コントローラでログアウトするときは下記のように書く
+    sign_out current_user
+    redirect_to root_path
+  end
+
   protected
   # 追記する
   def update_resource(resource, params)

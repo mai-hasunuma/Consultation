@@ -52,7 +52,7 @@
         <%= f.submit '登録' %>
       <% end %>
 
-      <%= link_to "アカウント削除", @user, data: { confirm: "退会しますか?" }, method: :delete %>
+      <%= link_to "アカウント削除", user_path(@user), data: { confirm: "退会しますか?" }, method: :delete %>
     </div>
   </div>
 </div>
