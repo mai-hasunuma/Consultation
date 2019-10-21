@@ -21,7 +21,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#"><i class="far fa-bell"></i>通知</a>
+              <%= link_to notifications_path do %>
+                <% if unchecked_notifications.any? %>
+                  <span>
+                    <i class="far fa-bell fa-lg fa-stack-2x" style="font-size: 1.5em;">通知</i>
+                    <i class="fas fa-circle n-circle fa-stack-1x"></i>
+                  </span>
+                <% else %>
+                  <i class="far fa-bell fa-lg" style="font-size: 1.5em;"></i>通知
+                <% end %>
+              <% end %>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#"><i class="fas fa-search"></i>ユーザ検索</a>
@@ -29,6 +38,7 @@
             <li class="nav-item">
               <a class="nav-link" href="#"><i class="far fa-envelope"></i>DMを見る </a>
             </li>
+          </ul>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="far fa-user"></i>
