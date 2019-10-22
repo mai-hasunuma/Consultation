@@ -13,26 +13,23 @@
   *= require_self
  */
 @import "bootstrap";
+@import "wonder/one-page-wonder.scss";
 
-$blue: #D0ECFF !default;
-$red: #d03c1b !default;
-$yellow: #F0F17D !default;
-$black: #222 !default;
-$gray: #ECEDE5 !default;
-$purple: #F0F17D !default;
-$pink: #FFCFD2 !default;
 
-$primary: $blue !default;
-$secondary: $gray !default;
-$warning: $yellow !default;
-$info: $pink !default;
-$dark: $black !default;
-$light: $purple !default;
+// $blue: #D0ECFF !default;
+// $red: #d03c1b !default;
+// $yellow: #F0F17D !default;
+// $black: #222 !default;
+// $gray: #ECEDE5 !default;
+// $purple: #F0F17D !default;
+// $pink: #FFCFD2 !default;
 
-body{
-  background-color: #fff;
-  color: $black;
-}
+// $primary: $blue !default;
+// $secondary: $gray !default;
+// $warning: $yellow !default;
+// $info: $pink !default;
+// $dark: $black !default;
+// $light: $purple !default;
 
 
 a.user_info{
@@ -43,4 +40,20 @@ a.user_info{
 a.name{
    color: $black;
   text-decoration: none;
+}
+
+header.masthead {
+  background: linear-gradient(0deg,#D0ECFF 0,#E695F4 100%);
+}
+
+header.masthead .bg-circle {
+  background: linear-gradient(0deg,#E695F4 0,#D0ECFF 100%);
+}
+
+.navbar-custom {
+  background-color: #FFCFD2;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff;
 }
