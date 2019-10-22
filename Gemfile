@@ -70,6 +70,8 @@ gem 'activeadmin'
 gem 'rails-i18n'
 gem 'paranoia'
 gem "active_admin_paranoia" , '~> 1.0.11'
+gem 'devise-i18n'
+gem 'devise-i18n-views'
 
 group :production do
   gem 'mysql2'
