@@ -59,6 +59,8 @@ App.board = App.cable.subscriptions.create("BoardChannel", {
 
     chat.appendChild(row);
 
+    chat.scrollTop = chat.scrollHeight;
+
 //     // .innerText;先ほどnewMessageで作成したpタグの要素の中身をmessageに変える（今回はpタグの中に文字を入れる）
 //     newMessage.innerText = data.message;
 //     // 親要素　id=chatの中にnewMessageを入れる

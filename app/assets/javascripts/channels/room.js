@@ -70,6 +70,8 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
     row.appendChild(col1);
 
     chat.appendChild(row);
+
+    chat.scrollTop = chat.scrollHeight;
   },
 
   speak: function(message) {
