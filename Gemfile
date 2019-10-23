@@ -72,6 +72,7 @@ gem 'paranoia'
 gem "active_admin_paranoia" , '~> 1.0.11'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
+gem 'kaminari'
 
 group :production do
   gem 'mysql2'

@@ -40,27 +40,24 @@ class BoardsController < ApplicationController
     @board_categories = BoardCategory.all
     if params[:q].blank?
       @b = Board.ransack(board_comments_content_or_title_or_content_cont_any: nil)
-      @boards = @b.result(distinct: true)
+      @boards = @b.result(distinct: true).page(params[:page]).per(10)
       return
     end
 
-    logger.debug("//////////")
     # 全角スペース　半角スペースを分ける
     search_words = params[:q][:title_or_content_cont].split(/[,\n\p{blank}]+/)
 
-    logger.debug("//////////")
     # board_commentテーブルのcontent title、boardテーブルのcontentから検索
     # contを最後に書くことでlike検索が実装できるようになる
     # orで複数カラムを選択
     # any 1つ以上の単語が検索可能　http://nekorails.hatenablog.com/entry/2017/05/31/173925
     @b = Board.ransack(board_comments_content_or_title_or_content_cont_any: search_words)
-    logger.debug("//////////")
-    @boards = @b.result(distinct: true)
+    @boards = @b.result(distinct: true).page(params[:page]).per(10)
   end
 
   def search
     @b = BoardCategory.search(search_params)
-    @boards = @b.result(distinct: true)
+    @boards = @b.result(distinct: true).page(params[:page]).per(10)
   end
 
   private

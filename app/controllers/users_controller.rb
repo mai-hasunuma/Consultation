@@ -54,7 +54,7 @@ class UsersController < ApplicationController
 
   def index
     current_user_current_trouble_ids = current_user.current_trouble_category_ids
-    users = User.all
+    users = User.all.page(params[:page]).all.page(params[:page]).per(10)
     matched_current_trouble_count_hash = {}
     # おすすめユーザ表示
     users.each do |user|
@@ -73,22 +73,19 @@ class UsersController < ApplicationController
 
     if params[:q].blank?
       @q = User.ransack(introduction_cont_any: nil)
-      @users = @q.result(distinct: true)
+      @users = @q.result(distinct: true).page(params[:page]).per(10)
       return
     end
 
-    logger.debug("//////////")
     search_words = params[:q][:introduction_cont].split(/[,\n\p{blank}]+/)
 
-    logger.debug("//////////")
     @q = User.ransack(introduction_cont_any: search_words)
-    logger.debug("//////////")
-    @users = @q.result(distinct: true)
+    @users = @q.result(distinct: true).page(params[:page]).per(10)
   end
 
   def search
     @q = User.search(search_params)
-    @users = @q.result(distinct: true)
+    @users = @q.result(distinct: true).page(params[:page]).per(10)
   end
 
   def destroy

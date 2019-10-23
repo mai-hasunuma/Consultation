@@ -54,6 +54,7 @@
               <td><%= board.board_comments.count %></td>
             </tr>
           <% end %>
+          <%= paginate @boards %>
         </tbody>
       </table>
     </div>
