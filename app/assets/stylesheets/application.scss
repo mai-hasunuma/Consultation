@@ -57,3 +57,64 @@ header.masthead .bg-circle {
 .navbar-dark .navbar-nav .nav-link {
   color: #fff;
 }
+
+a.user_edit{
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #E695F4;/*ボタン色*/
+  color: #FFF;
+  border-bottom: solid 4px #627295;
+  border-radius: 3px;
+}
+
+input.user_edit{
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #E695F4;/*ボタン色*/
+  color: #FFF;
+  border-bottom: solid 4px #627295;
+  border-radius: 3px;
+}
+
+.user-introduction {
+  position: relative;
+  display: inline-block;
+  margin: 1.5em 0 1.5em 15px;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #e0edff;
+}
+
+.user-introduction:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  margin-top: -15px;
+  border: 15px solid transparent;
+  border-right: 15px solid #e0edff;
+}
+
+.user-introduction p {
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.troubles{
+    padding: 0.5em 1em;
+    color: #5989cf;
+    background: #c6e4ff;
+    border-bottom: solid 6px #aac5de;
+    border-radius: 9px;
+}
+.troubles p {
+    margin: 0; 
+    padding: 0;
+}

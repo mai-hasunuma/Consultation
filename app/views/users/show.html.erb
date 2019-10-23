@@ -1,50 +1,67 @@
 <div class="container-fluid">
-　<h1>ユーザ詳細画面</h1>
-  <% if @user == current_user %>
-    <%= link_to "ユーザ編集", edit_user_path %>
-  <% else %>
-    <% if @isRoom == true %>
-      <p><a href="/rooms/<%= @roomId %>">DMを送る</a></p>
-    <% else %>
-      <%= form_for @room do |f| %>
-        <%= fields_for @entry do |e| %>
-          <%= e.hidden_field :user_id, :value=> @user.id %>
-        <% end %>
-        <%= f.submit 'DMを初めて送る' %>
-      <% end %>
-    <% end %>
-  <% end %>
-
-  <div class="row">
-    <div class="col-md-3">
-      <% if @user.image.attached? %>
-        <%= image_tag @user.image, size: "200x200"  %>
-      <% end %>
-    </div>
-    <div class="col-md-9">
+  <div class='row'>
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
       <div class="row">
-        <div class="col-md-1">
-          <%= @user.name %>
+        <div class="col-md-8" style="font-size: 50px;">
+    　    <%= @user.name %>さん
         </div>
-        <div class="col-md-5">
-          主婦歴<%= @user.housewife_year %>年
+        <div class="col-md-1"></div>
+        <div class="col-md-3" style="margin-top: 25px;">
+          <% if @user == current_user %>
+            <%= link_to "ユーザ編集", edit_user_path,class: 'user_edit' %>
+          <% else %>
+            <% if @isRoom == true %>
+              <p><a href="/rooms/<%= @roomId %>" class="user_edit">DMを送る</a></p>
+            <% else %>
+              <%= form_for @room do |f| %>
+                <%= fields_for @entry do |e| %>
+                  <%= e.hidden_field :user_id, :value=> @user.id %>
+                <% end %>
+                <%= f.submit 'DMを初めて送る',class: 'user_edit' %>
+              <% end %>
+            <% end %>
+          <% end %>
         </div>
       </div>
-      <div class="row",style="padding-top: 20px;">
-        <%= @user.introduction %>
+
+      <div class="row">
+        <div class="col-md-6">
+          <% if @user.image.attached? %>
+            <%= image_tag @user.image, size: "300x300"  %>
+          <% end %>
+        </div>
+        <div class="col-md-6" style="font-size: 40px; margin-top: 40px;">
+          <div class="row">
+            主婦歴 <%= @user.housewife_year %>年
+          </div>
+          <div class="row" style="padding-top: 20px;">
+            <div class="user-introduction">
+              <p><%= @user.introduction %></p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+      <div class="col-md-4" style="margin: 30px 0 0 30px;">
+        <p style="font-size: 20px">今悩んでいること</p>
+        <div class="troubles" style="margin-bottom: 30px;">
+          <% @user.current_troubles.each do |c| %>
+          <% unless c.trouble_category.nil? %>
+              <span style="margin-right: 10px"><%= c.trouble_category.name %></span>
+          <% end %>
+          <% end %>
+        </div>
 
-  <p>今悩んでいること</p>
-  <% @user.current_troubles.each do |c| %>
-    <span style="margin-right: 10px"><%= c.trouble_category.name %></span>
-  <% end %>
-
-  <p>過去悩んでいたこと</p>
-  <% @user.past_troubles.each do |p| %>
-    <span style="margin-right: 10px"><%= p.trouble_category.name %></span>
-  <% end %>
+          <p style="font-size: 20px">過去悩んでいたこと</p>
+          <div class="troubles">
+            <% @user.past_troubles.each do |p| %>
+          <% unless p.trouble_category.nil? %>
+                <span style="margin-right: 10px"><%= p.trouble_category.name %></span>
+            <% end %>
+            <% end %>
+          </div>
+      </div>
   </div>
 </div>
 
