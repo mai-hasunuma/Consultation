@@ -2,57 +2,61 @@
 <div class="row">
   <div class="col-md-1">
   </div>
-  <div class="col-md-10", style="margin-top: 10px;">
+  <div class="col-md-8", style="margin-top: 10px;">
     <div class="row">
-      <div class="col-md-5">
-      <h1>スレッド一覧</h1>
+        <div class="col-md-9">
+        <h1>スレッド一覧</h1>
       </div>
-      <div class="col-md-5">
-        <%= link_to "スレッド新規作成", new_board_path %>
-      </div>
+        <%= link_to "スレッド新規作成", new_board_path,class: 'user_edit' %>
     </div>
 
-    <div class="col-md-10", style="margin-top: 10px;">
+    <div class="col-md-12", style="margin-top: 30px; padding: 0 0 0 0;">
       <%= render 'shared/board_search_form'  %>
     </div>
 
-
-    <table class="table table-borderless", style="margin-top: 30px;">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col">タイトル</th>
-          <th scope="col">最終コメント</th>
-          <th scope="col">コメント数</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @boards.each do |board| %>
+    <div class="boards">
+      <table class="table table-borderless", style="margin-top: 30px;">
+        <thead>
           <tr>
-            <td>
-              <% if board.user.image.attached? %>
-                <%= image_tag url_for(board.user.image), size: 50  %>
-              <% else %>
-                <%= image_tag "no_image.png", size: 50 %>
-              <% end %><br>
-              <%= board.user.name %>
-            </td>
-            <td>
-              <%= link_to board_path(board) do %>
-                <%= board.title %>
-              <% end %>
-            </td>
-            <td>
-              <% if board.board_comments.empty? %>
-                <%= board.updated_at.strftime("%Y/%m/%d") %>
-              <% else %>
-                <%= board.board_comments.last.created_at.strftime("%Y/%m/%d")  %>
-              <% end %>
-            </td>
-            <td><%= board.board_comments.count %></td>
+            <th scope="col"></th>
+            <th scope="col">タイトル</th>
+            <th scope="col">最終コメント日</th>
+            <th scope="col">コメント数</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @boards.each do |board| %>
+            <tr>
+              <td>
+                <%= link_to user_path(board.user),style: 'text-decoration: none; color: #565656' do %>
+                  <% if board.user.image.attached? %>
+                    <%= image_tag url_for(board.user.image), size: 50  %>
+                  <% else %>
+                    <%= image_tag "no_image.png", size: 50 %>
+                  <% end %><br>
+                  <span style="text-align: center; text-decoration: none;">
+                    <%= board.user.name %>
+                  </span>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to board_path(board),style: 'text-decoration: none; color: #565656' do %>
+                  <%= board.title %>
+                <% end %>
+              </td>
+              <td>
+                <% if board.board_comments.empty? %>
+                  <%= board.updated_at.strftime("%Y/%m/%d") %>
+                <% else %>
+                  <%= board.board_comments.last.created_at.strftime("%Y/%m/%d")  %>
+                <% end %>
+              </td>
+              <td><%= board.board_comments.count %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
+  <div class="col-md-1"></div>
 </div>
