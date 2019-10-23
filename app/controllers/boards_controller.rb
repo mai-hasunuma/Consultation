@@ -45,8 +45,16 @@ class BoardsController < ApplicationController
     end
 
     logger.debug("//////////")
+    # 全角スペース　半角スペースを分ける
     search_words = params[:q][:title_or_content_cont].split(/[,\n\p{blank}]+/)
-    @b = Board.ransack(board_comments_content_or_title_or_content_eq_any: search_words)
+
+    logger.debug("//////////")
+    # board_commentテーブルのcontent title、boardテーブルのcontentから検索
+    # contを最後に書くことでlike検索が実装できるようになる
+    # orで複数カラムを選択
+    # any 1つ以上の単語が検索可能　http://nekorails.hatenablog.com/entry/2017/05/31/173925
+    @b = Board.ransack(board_comments_content_or_title_or_content_cont_any: search_words)
+    logger.debug("//////////")
     @boards = @b.result(distinct: true)
   end
 
@@ -64,16 +72,4 @@ class BoardsController < ApplicationController
     params.require(:q).permit!
   end
 
-  def custom_search_q
-    q_hash = params[:q]
-    case q_hash[:custom_search][:cost_entries]
-    when 'price_and_cost_present_true' # OR条件がYesの場合
-      custom_or_q = {
-        price_and_b_tables_cost_not_null: true,
-        price_and_fee_not_null: true,
-        m: 'or'
-      }
-      @cost_entries_present = true
-    end
-  end
 end
