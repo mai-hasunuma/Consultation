@@ -28,7 +28,8 @@ class RoomsController < ApplicationController
   end
 
   def index
-    @room_comments = RoomComment.all
+    @current_user.entry_rooms = current_user.entry_rooms.all.page(params[:page]).per(10)
+    @room_comments = RoomComment.all.page(params[:page])
   end
 
 end
