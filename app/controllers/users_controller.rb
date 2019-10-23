@@ -66,8 +66,23 @@ class UsersController < ApplicationController
     end
     # value順に並び替える　.sort_by{ |_, v| -v } https://qiita.com/mnishiguchi/items/9095ac989ed7d51fe395
     @recommended_order = Hash[ matched_current_trouble_count_hash.sort_by{ |_, v| -v } ]
+
+    # 検索機能
     @q = User.ransack(params[:q])
     @trouble_categories = TroubleCategory.all
+
+    if params[:q].blank?
+      @q = User.ransack(introduction_cont_any: nil)
+      @users = @q.result(distinct: true)
+      return
+    end
+
+    logger.debug("//////////")
+    search_words = params[:q][:introduction_cont].split(/[,\n\p{blank}]+/)
+
+    logger.debug("//////////")
+    @q = User.ransack(introduction_cont_any: search_words)
+    logger.debug("//////////")
     @users = @q.result(distinct: true)
   end
 

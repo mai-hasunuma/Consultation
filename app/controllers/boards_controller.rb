@@ -39,7 +39,7 @@ class BoardsController < ApplicationController
     #@b = Board.ransack(params[:q])
     @board_categories = BoardCategory.all
     if params[:q].blank?
-      @b = Board.ransack(board_comments_content_or_title_or_content_eq_any: nil)
+      @b = Board.ransack(board_comments_content_or_title_or_content_cont_any: nil)
       @boards = @b.result(distinct: true)
       return
     end
