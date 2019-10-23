@@ -2,66 +2,57 @@
   <div class="row">
     <div class="col-md-1">
     </div>
-    <div class="col-md-11">
-      <div class="row", style="margin-top: 20px;">
-        <div class="col-md-4">
-          <span>カテゴリ</span>
-          <% @board.board_categories.each do |b| %>
-            <%= b.name %>
-          <% end %>
-        </div>
-        <div class="col-md-2">
-          <span>コメント数</span>
-          <%= @board.board_comments.count %>
-        </div>
-        <div class="col-md-2">
-          <span>作成日</span>
-            <%= @board.created_at.strftime("%Y/%m/%d") %>
-        </div>
-        <div class="col-md-4">
-          <span>最終更新日</span>
-          <% if @board.board_comments.empty? %>
-            <%= @board.updated_at.strftime("%Y/%m/%d") %>
-          <% else %>
-            <%= @board.board_comments.last.created_at.strftime("%Y/%m/%d")  %>
-          <% end %>
-        </div>
-        <div class="col-md-2">
-          <% if @board.user == current_user %>
-            <%= link_to 'スレッド編集', edit_board_path %>
-          <% end %>
-        </div>
+    <div class="col-md-10">
+      <div class="row" style="padding-left: 15px;">
+        <span style="font-size: 20px;">カテゴリ</span>
+        <% @board.board_categories.each do |b| %>
+          <span class="tag" style="margin-left: 10px;"><%= b.name %></span>
+        <% end %>
       </div>
       <div class="row", style="margin-top: 20px;">
         <div class="col-md-2"></div>
-        <div class="col-md-9", style="margin-bottom: 20px;">
-          <h1><%= @board.title %></h1>
+        <div class="col-md-5", style="margin-bottom: 20px;">
+          <h2><%= @board.title %></h2>
+        </div>
+        <div class="col-md-2">
+          <% if @board.user == current_user %>
+            <%= link_to 'スレッド編集', edit_board_path,class: 'user_edit' %>
+          <% end %>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2" style="padding-left: 80px;">
+          <%= link_to user_path(@board.user),style: 'text-decoration: none; color: #565656;' do %>
           <% if @board.user.image.attached? %>
             <%= image_tag @board.user.image, size: 100 %>
           <% end %>
           <p><%= @board.user.name %></p>
+          <% end %>
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-8 board-content" style="margin-top: 0">
           <%= @board.content %>
         </div>
       </div>
 
       <div class="row">
-        <% if @board.images.attached? %>
-          <% @board.images.each do |image| %>
-            <%= image_tag image %> <br>
+        <div class="col-md-1"></div>
+        イメージ画像
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-md-1"></div>
+        <div class="col-md-11">
+          <% if @board.images.attached? %>
+            <% @board.images.each do |image| %>
+              <%= image_tag image, size: 100 %> <br>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
 
 
-      <div class="col-md-10", style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; height: 350px; overflow: auto;">
-        <div id='chat'>
+      <div class="col-md-12", style="padding: 0.2em 0.5em; margin: 2em 0; color: #565656; background: #ffeaea; box-shadow: 0px 0px 0px 10px #ffeaea; border: dashed 2px #ffc3c3; border-radius: 8px; height: 500px;">
+        <div id='chat' style="overflow: scroll; height: 350px" >
           <div class="col-md-12">
             <% @board_comments.each do |board_comment| %>
               <% if board_comment.user == current_user %>
@@ -72,14 +63,18 @@
                     <div class="col-md-3">
                       <div style="text-align: left;">
                         <%= board_comment.content %>
-                        <p style="text-align:right;">by <%= board_comment.user.name %></p>
+                        <%= link_to user_path(@board.user),style: 'text-decoration: none; color: #565656;' do %>
+                          <p style="text-align:right;">by <%= board_comment.user.name %></p>
+                        <% end %>
                       </div>
                     </div>
                     <div class="col-md-1">
-                      <% if board_comment.user.image.attached? %>
-                        <%= image_tag url_for(board_comment.user.image), size: 50  %>
-                      <% else %>
-                        <%= image_tag "no_image.png", size: 40 %>
+                      <%= link_to user_path(@board.user),style: 'text-decoration: none; color: #565656;' do %>
+                        <% if board_comment.user.image.attached? %>
+                          <%= image_tag url_for(board_comment.user.image), size: 50  %>
+                        <% else %>
+                          <%= image_tag "no_image.png", size: 40 %>
+                        <% end %>
                       <% end %>
                     </div>
                   </div>
@@ -87,15 +82,19 @@
                 <!-- カレントユーザ以外の表示方法 -->
                 <div class="row">
                   <div class="col-md-1">
-                    <% if board_comment.user.image.attached? %>
-                      <%= image_tag url_for(board_comment.user.image), size: 50  %>
-                    <% else %>
-                      <%= image_tag "no_image.png", size: 40 %>
+                    <%= link_to user_path(@board.user),style: 'text-decoration: none; color: #565656;' do %>
+                      <% if board_comment.user.image.attached? %>
+                        <%= image_tag url_for(board_comment.user.image), size: 50  %>
+                      <% else %>
+                        <%= image_tag "no_image.png", size: 40 %>
+                      <% end %>
                     <% end %>
                   </div>
                   <div class="col-md-3">
                     <%= board_comment.content %>
-                    <p style="text-align:right;">by <%= board_comment.user.name %></p>
+                    <%= link_to user_path(@board.user),style: 'text-decoration: none; color: #565656;' do %>
+                      <p style="text-align:right;">by <%= board_comment.user.name %></p>
+                    <% end %>
                   </div>
                 </div>
               <% end %>
@@ -108,7 +107,7 @@
             </div>
             <div class="col-md-8">
               <form>
-                <textarea cols="100" rows="3" placeholder="コメントを入力"></textarea>
+                <textarea cols="100" rows="3" placeholder="コメントを入力" style="border-radius: 9px;"></textarea>
                 <input type="submit" value="投稿" onClick="postBoardMessage()" />
               </form>
             </div>
