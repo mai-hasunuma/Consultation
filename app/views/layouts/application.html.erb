@@ -11,6 +11,22 @@
   </head>
 
   <body style="padding: 0; margin: 0; height: 100%;">
+    <style type="text/css">
+      html {
+        position: relative;
+        min-height: 100%;
+      }
+
+      body {
+        margin-bottom: 300px;
+      }
+
+      footer {
+        position: absolute;
+        bottom: 0;
+        width: 100vw;
+      }
+    </style>
     <div class="display: flex; flex-direction: column; min-height: 100vh;">
       <% if user_signed_in? %>
   　　<div class="container-fluid" style="margin-bottom: 100px;" id="aaa">
@@ -88,13 +104,13 @@
 
       <% end %>
       <%= yield %>
-      <footer class="py-5 bg-black" style="margin-top: 100px;">
-        <div class="container-fluid">
-          <div class="container">
-            <p class="m-0 text-center text-white small">Copyright &copy; 主婦たちのお悩み相談室 2019</p>
-          </div>
-        </div>
-      </footer>
     </div>
+    <footer class="py-5 bg-black" style="margin-top: 100px;">
+      <div class="container-fluid">
+        <div class="container">
+          <p class="m-0 text-center text-white small">Copyright &copy; 主婦たちのお悩み相談室 2019</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
