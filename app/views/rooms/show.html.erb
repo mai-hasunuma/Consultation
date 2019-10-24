@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" style="padding-bottom: 200px;">
   <div class="row">
     <div class="col-md-1">
     </div>
@@ -9,61 +9,77 @@
           <% unless e.user == current_user %>
             <% if e.user.image.attached? %>
               <div class="col-md-2">
-                <%= link_to user_path(e.user) do %>
-                  <%= image_tag e.user.image , size: "50x50" %>
+                <%= link_to user_path(e.user),style: 'text-decoration: none; color: #565656;' do %>
+                  <%= image_tag e.user.image , size: "100x100" %>
                 <% end %>
               </div>
             <% else %>
               <div class="col-md-2">
-                <%= link_to user_path(e.user) do %>
+                <%= link_to user_path(e.user),style: 'text-decoration: none; color: #565656;' do %>
                   <%= image_tag "no_image.png", size: "50x50" %>
                 <% end %>
               </div>
             <% end %>
             <div class="col-md-5">
-              <%= link_to user_path(e.user) do %>
-                <h1 class="name"><%= e.user.name %></h1>
+              <%= link_to user_path(e.user) ,style: 'text-decoration: none; color: #565656;' do %>
+                <h1 class="name" style="text-decoration: none; color: #565656;"><%= e.user.name %></h1>
               <% end %>
             </div>
           <% end %>
         <% end %>
       </div>
-      <div class="col-md-10", style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; height: 500px; overflow: auto;">
-        <div id='chat'>
+      <div class="col-md-11", style="padding: 0.2em 0.5em; margin: 2em 0; color: #565656; background: #ffeaea; box-shadow: 0px 0px 0px 10px #ffeaea; border: dashed 2px #ffc3c3; border-radius: 8px; height: 500px;">
+        <div id='chat' style="overflow: scroll; height: 350px" >
           <div class="col-md-12">
             <% @room_comments.each do |room_comment| %>
               <% if room_comment.user == current_user %>
     　　　　　　　<!-- カレントユーザの表示方法 -->
-                <div class="row">
+                <div style="margin-top: 10px;">
+                  <div class="row">
                     <div class="col-md-7">
                     </div>
                     <div class="col-md-3">
                       <div style="text-align: left;">
                         <%= room_comment.content %>
-                        <p style="text-align:right;">by <%= room_comment.user.name %></p>
+                        <%= link_to user_path(room_comment.user) ,style: 'text-decoration: none; color: #565656;' do %>
+                          <p style="text-align:right; font-size: 10px;">by <%= room_comment.user.name %>  <%= room_comment.created_at.strftime("%m/%d %H:%M") %></p>
+                        <% end %>
                       </div>
                     </div>
                     <div class="col-md-1">
                       <% if room_comment.user.image.attached? %>
-                        <%= image_tag url_for(room_comment.user.image), size: 50  %>
+                        <%= link_to user_path(room_comment.user) ,style: 'text-decoration: none; color: #565656;' do %>
+                          <%= image_tag url_for(room_comment.user.image), size: 50  %>
+                          <% end %>
                       <% else %>
-                        <%= image_tag "no_image.png", size: 40 %>
+                        <%= link_to user_path(room_comment.user) ,style: 'text-decoration: none; color: #565656;' do %>
+                          <%= image_tag "no_image.png", size: 40 %>
+                        <% end %>
                       <% end %>
                     </div>
                   </div>
+                </div>
               <% else %>
                 <!-- カレントユーザ以外の表示方法 -->
-                <div class="row">
-                  <div class="col-md-1">
-                    <% if room_comment.user.image.attached? %>
-                      <%= image_tag url_for(room_comment.user.image), size: 50  %>
-                    <% else %>
-                      <%= image_tag "no_image.png", size: 40 %>
-                    <% end %>
-                  </div>
-                  <div class="col-md-3">
-                    <%= room_comment.content %>
-                    <p style="text-align:right;">by <%= room_comment.user.name %></p>
+                <div style="margin-top: 10px;">
+                  <div class="row">
+                    <div class="col-md-1">
+                      <% if room_comment.user.image.attached? %>
+                        <%= link_to user_path(room_comment.user) ,style: 'text-decoration: none; color: #565656;' do %>
+                          <%= image_tag url_for(room_comment.user.image), size: 50  %>
+                        <% end %>
+                      <% else %>
+                        <%= link_to user_path(room_comment.user) ,style: 'text-decoration: none; color: #565656;' do %>
+                          <%= image_tag "no_image.png", size: 40 %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                    <div class="col-md-3">
+                      <%= room_comment.content %>
+                      <%= link_to user_path(room_comment.user) ,style: 'text-decoration: none; color: #565656;' do %>
+                        <p style="text-align:right; font-size: 10px;">by <%= room_comment.user.name %>  <%= room_comment.created_at.strftime("%m/%d %H:%M") %></p>
+                      <% end %>
+                    </div>
                   </div>
                 </div>
               <% end %>

@@ -57,12 +57,12 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
     var newUserImage = document.createElement('img');
     if(data.image){
       newUserImage.src = data.image;
-      newUserImage.width = 40;
-      newUserImage.height = 40;
+      newUserImage.width = 50;
+      newUserImage.height = 50;
     }else{
       newUserImage.src = "/no_image.png";
-      newUserImage.width = 40;
-      newUserImage.height = 40;
+      newUserImage.width = 50;
+      newUserImage.height = 50;
     };
 
     col1.appendChild(newUserImage);
