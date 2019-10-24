@@ -76,10 +76,10 @@ class UsersController < ApplicationController
       @users = @q.result(distinct: true).page(params[:page]).per(10)
       return
     end
-
-    search_words = params[:q][:introduction_cont].split(/[,\n\p{blank}]+/)
-
-    @q = User.ransack(introduction_cont_any: search_words)
+    # binding.pry
+    search_words = params[:q][:introduction_cont_any].split(/[,\n\p{blank}]+/)
+    @q = User.ransack(housewife_year_gteq: params[:q][:housewife_year_gteq], housewife_year_lt: params[:q][:housewife_year_lt],
+       introduction_cont_any: search_words, current_trouble_categories_id_in: params[:q][:current_trouble_categories_id_in], past_trouble_categories_id_in: params[:q][:past_trouble_categories_id_in])
     @users = @q.result(distinct: true).page(params[:page]).per(10)
   end
 

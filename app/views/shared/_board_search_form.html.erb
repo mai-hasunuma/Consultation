@@ -1,6 +1,6 @@
 <div style="padding: 0.5em; background: #ECEDE5; box-shadow: 0 0 4px rgba(0, 0, 0, 0.23);">
 <%= search_form_for @b, url: boards_path do |f| %>
-  <%= f.label :board_categories, "カテゴリー" %>
+  <%= f.label :board_categories_id_in, "カテゴリー" %>
   <%= f.collection_check_boxes :board_categories_id_in, BoardCategory.all, :id, :name %><br>
   <%= f.label :title_or_content_cont, "タイトル検索" %>
   <%= f.search_field :title_or_content_cont %>
