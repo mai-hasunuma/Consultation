@@ -30,8 +30,8 @@ App.board = App.cable.subscriptions.create("BoardChannel", {
     textleft.innerText = data.message;
 
     var username = document.createElement('p');
-    username.style = "text-align: right;";
-    username.innerText = "by " + data.name;
+    username.style = "text-align: right; font-size: 10px;";
+    username.innerText = "by " + data.name + data.created_at;
 
     textleft.appendChild(username);
 

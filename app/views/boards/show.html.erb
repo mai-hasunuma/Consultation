@@ -64,7 +64,7 @@
                       <div style="text-align: left;">
                         <%= board_comment.content %>
                         <%= link_to user_path(@board.user),style: 'text-decoration: none; color: #565656;' do %>
-                          <p style="text-align:right;">by <%= board_comment.user.name %></p>
+                          <p style="text-align: right;font-size: 10px;">by <%= board_comment.user.name %>  <%= board_comment.created_at.strftime("%m/%d %H:%M") %></p>
                         <% end %>
                       </div>
                     </div>
@@ -93,7 +93,7 @@
                   <div class="col-md-3">
                     <%= board_comment.content %>
                     <%= link_to user_path(@board.user),style: 'text-decoration: none; color: #565656;' do %>
-                      <p style="text-align:right;">by <%= board_comment.user.name %></p>
+                      <p style="text-align:right; font-size: 10px;">by <%= board_comment.user.name %> <%= board_comment.created_at.strftime("%m/%d %H:%M") %></p>
                     <% end %>
                   </div>
                 </div>

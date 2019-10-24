@@ -8,6 +8,7 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
   },
 
   received: function(data) {
+    console.log(data)
     // var chat = document.getElementById('chat');
     // var newMessage = document.createElement('span');
     // newMessage.innerText = data.message;
@@ -42,8 +43,8 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
     textleft.innerText = data.message;
 
     var username = document.createElement('p');
-    username.style = "text-align: right;";
-    username.innerText = "by " + data.name;
+    username.style = "text-align: right; font-size: 10px;";
+    username.innerText = "by " + data.name  + data.created_at;
 
     textleft.appendChild(username);
 
