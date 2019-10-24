@@ -40,6 +40,7 @@ class Board < ApplicationRecord
     if board_writed_users.blank? && !owner_comment
       save_notification_board_comment!(write_user, board_comment_id, board_owner_id)
     end
+    # 掲示板に書き込んだことがあるユーザが存在して、オーナーのコメントじゃなければ
     if board_writed_users.exists? && !owner_comment
       save_notification_board_comment!(write_user, board_comment_id, board_owner_id)
     end
