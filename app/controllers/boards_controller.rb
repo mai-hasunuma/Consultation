@@ -51,7 +51,7 @@ class BoardsController < ApplicationController
     # contを最後に書くことでlike検索が実装できるようになる
     # orで複数カラムを選択
     # any 1つ以上の単語が検索可能　http://nekorails.hatenablog.com/entry/2017/05/31/173925
-    @b = Board.ransack(board_comments_content_or_title_or_content_cont_any: search_words)
+    @b = Board.ransack(board_categories_id_in: params[:q][:board_categories_id_in], board_comments_content_or_title_or_content_cont_any: search_words)
     @boards = @b.result(distinct: true).page(params[:page]).per(10)
   end
 

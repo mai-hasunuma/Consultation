@@ -5,8 +5,8 @@
     <%= f.number_field :housewife_year_gteq, min:1, max:100 %>以上〜
     <%= f.number_field :housewife_year_lt, min:1, max:100 %>未満<br>
 
-    <%= f.label :introduction_cont, "自己紹介文" %>
-    <%= f.search_field :introduction_cont %><br>
+    <%= f.label :introduction_cont_any, "自己紹介文" %>
+    <%= f.search_field :introduction_cont_any %><br>
 
     <%= f.label :current_trouble_categories, "今悩んでいること" %><br>
     <%= f.collection_check_boxes :current_trouble_categories_id_in, TroubleCategory.all, :id, :name %><br>
