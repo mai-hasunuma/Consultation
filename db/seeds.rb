@@ -50,6 +50,12 @@ User.create(name: "りえ", email: "rie@gmail.com", password: "111111", password
 User.create(name: "咲", email: "saki@gmail.com", password: "111111", password_confirmation: '111111', housewife_year: 20, introduction: "子供が今年大学受験です。気が早いですが、これが終わったら子育ても終わりだなと思いホッとしている反面悲しいです。子育ても落ち着いてきたので医療事務の資格を取って働こうと思っています。よろしくお願いします")
 User.create(name: "千春", email: "chiharu@gmail.com", password: "111111", password_confirmation: '111111', housewife_year: 25, introduction: "今年子供の就職活動が終了し、３人の娘の子育てが終わりました。皆さんの相談に乗ります")
 User.create(name: "れいか", email: "reika@gmail.com", password: "111111", password_confirmation: '111111', housewife_year: 13, introduction: "娘が小学校６年生で受験生です。成績が伸び悩んでいて、厳しい状況です。親としてできることを探しにこちらに登録しました。")
+User.create(name: "なつみ", email: "natsumi@gmail.com", password: "111111", password_confirmation: '111111', housewife_year: 20, introduction: "")
+User.create(name: "なつき", email: "natsuki@gmail.com", password: "111111", password_confirmation: '111111', housewife_year: 25, introduction: "")
+User.create(name: "れいな", email: "reina@gmail.com", password: "111111", password_confirmation: '111111', housewife_year: 13, introduction: "")
+
+
+
 
 #ユーザの画像
 user1 = User.find(1)

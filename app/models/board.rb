@@ -1,6 +1,6 @@
 class Board < ApplicationRecord
-  validates :title, presence: true
-  validates :content, presence: true
+  validates :title, presence: true, length: { maximum: 30 }
+  validates :content, presence: true, length: { maximum: 200 }
   # 掲示板
   has_many_attached :images
   has_many :board_selected_categories, dependent: :destroy

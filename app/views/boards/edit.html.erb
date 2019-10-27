@@ -5,6 +5,7 @@
     <div class="col-md-9">
       <h1>掲示板編集画面</h1>
       <%= form_with model: @board, local: true do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
         <div class="field">
           <label>カテゴリー</label>
           <%= f.collection_check_boxes :board_category_ids, @board_categories, :id, :name, include_hidden: false do |b| %>
@@ -26,8 +27,9 @@
           <%= f.label :image, "画像" %>
           <%= f.file_field :images, multiple: true %>
         </div>
-        <%= f.submit "スレッド作成" %>
+        <%= f.submit "スレッド編集" %>
       <% end %>
+      <%= link_to "掲示板削除", board_path(@board), data: { confirm: "掲示板を削除しますか?" }, method: :delete %>
     </div>
   </div>
 </div>

@@ -8,17 +8,19 @@
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-3" style="margin-top: 25px;">
-          <% if @user == current_user %>
-            <%= link_to "ユーザ編集", edit_user_path,class: 'user_edit' %>
-          <% else %>
-            <% if @isRoom == true %>
-              <p><a href="/rooms/<%= @roomId %>" class="user_edit">DMを送る</a></p>
+          <% if user_signed_in? %>
+            <% if @user == current_user %>
+              <%= link_to "ユーザ編集", edit_user_path,class: 'user_edit' %>
             <% else %>
-              <%= form_for @room do |f| %>
-                <%= fields_for @entry do |e| %>
-                  <%= e.hidden_field :user_id, :value=> @user.id %>
+              <% if @isRoom == true %>
+                <p><a href="/rooms/<%= @roomId %>" class="user_edit">DMを送る</a></p>
+              <% else %>
+                <%= form_for @room do |f| %>
+                  <%= fields_for @entry do |e| %>
+                    <%= e.hidden_field :user_id, :value=> @user.id %>
+                  <% end %>
+                  <%= f.submit 'DMを初めて送る',class: 'user_edit' %>
                 <% end %>
-                <%= f.submit 'DMを初めて送る',class: 'user_edit' %>
               <% end %>
             <% end %>
           <% end %>
