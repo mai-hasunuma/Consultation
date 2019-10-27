@@ -11,11 +11,10 @@
           <%= f.label :email %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email", size: 50 %>
         </div>
-        <div>aaaa</div>
         <div class="field", style="margin-top: 20px">
           <%= f.label :password %>
           <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> 文字以上入力してくださ)</em>
+          <em>(<%= @minimum_password_length %> 文字以上入力してください)</em>
           <% end %><br />
           <%= f.password_field :password, autocomplete: "new-password", size: 50 %>
         </div>
@@ -25,22 +24,22 @@
           <%= f.password_field :password_confirmation, autocomplete: "new-password", size: 50 %>
         </div>
 
-        <div class="field">
-            <%= f.label :name,"名前" %>
+        <div class="field", style="margin-top: 20px">
+            <%= f.label :name,"名前" %><br>
             <%= f.text_field :name, autocomplete: "name", autofocus: true, :size=>"20" %>
         </div>
 
-        <div class="field">
-            <%= f.label :housewife_year, "主婦歴" %>
+        <div class="field", style="margin-top: 20px">
+            <%= f.label :housewife_year, "主婦歴" %><br>
             <%= f.number_field :housewife_year, max: 100 %>
         </div>
 
-        <div class="actions", style="margin: 20px 0 0 340px;">
+        <div class="actions", style="margin: 20px 0 0 400px;">
           <%= f.submit "登録" %>
         </div>
 
       <% end %>
-      <div style="margin: 20px 0 0 250px;">
+      <div style="margin: 20px 0 0 350px;">
         <%= render "devise/shared/links" %>
       </div>
     </div>
