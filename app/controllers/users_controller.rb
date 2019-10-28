@@ -67,7 +67,7 @@ class UsersController < ApplicationController
 
     if user_signed_in?
       current_user_current_trouble_ids = current_user.current_trouble_category_ids
-      users = User.all.page(params[:page]).all.page(params[:page]).per(10)
+      users = User.all
       matched_current_trouble_count_hash = {}
       # おすすめユーザ表示
       users.each do |user|
@@ -95,6 +95,7 @@ class UsersController < ApplicationController
     @q = User.ransack(housewife_year_gteq: params[:q][:housewife_year_gteq], housewife_year_lt: params[:q][:housewife_year_lt],
        introduction_cont_any: search_words, current_trouble_categories_id_in: params[:q][:current_trouble_categories_id_in], past_trouble_categories_id_in: params[:q][:past_trouble_categories_id_in])
     @users = @q.result(distinct: true).page(params[:page]).per(10)
+    @recommended_order = Hash[ matched_current_trouble_count_hash.sort_by{ |_, v| -v } ]
 
   end
 
