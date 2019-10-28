@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to users_path
+      redirect_to user_path(current_user)
     else
       @trouble_categories = TroubleCategory.all
       @user.current_troubles.find_or_initialize_by(user_id: @user.id)
@@ -40,6 +40,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    # binding.pry
     if user_signed_in?
       @currentUserEntry = Entry.where(user_id: current_user.id)
       @userEntry = Entry.where(user_id: @user.id)
@@ -94,6 +95,7 @@ class UsersController < ApplicationController
     @q = User.ransack(housewife_year_gteq: params[:q][:housewife_year_gteq], housewife_year_lt: params[:q][:housewife_year_lt],
        introduction_cont_any: search_words, current_trouble_categories_id_in: params[:q][:current_trouble_categories_id_in], past_trouble_categories_id_in: params[:q][:past_trouble_categories_id_in])
     @users = @q.result(distinct: true).page(params[:page]).per(10)
+
   end
 
   def search

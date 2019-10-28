@@ -39,24 +39,24 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                <%= link_to notifications_path, class: "nav-link",  style: "position: relative;" do %>
+                <%= link_to notifications_path, class: "nav-link",  style: "position: relative; padding-top: 10px;" do %>
                   <% if unchecked_notifications.any? %>
                     <i class="fas fa-circle" style="position: absolute; top: 0; left: 0; color: #efa04c; font-size: 1em;"></i>
-                    <i class="far fa-bell fa-lg" style="font-size: 1.5em;"></i>通知
+                    <i class="far fa-bell fa-lg" style="font-size: 22px;"></i>通知
                   <% else %>
-                    <i class="far fa-bell fa-lg" style="font-size: 1.5em;"></i>通知
+                    <i class="far fa-bell fa-lg" style="font-size: 22px;"></i>通知
                   <% end %>
                 <% end %>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/users"><i class="fas fa-search" style="font-size: 1.5em;"></i>ユーザ検索</a>
+                  <a class="nav-link" href="/users"><i class="fas fa-search" style="font-size: 20px;"></i>ユーザ検索</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/rooms"><i class="far fa-envelope" style="font-size: 1.5em;"></i>DM</a>
+                  <a class="nav-link" href="/rooms"><i class="far fa-envelope" style="font-size: 20px;"></i>DM</a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="/boards"><i class="far fa-clipboard" style="font-size: 1.5em;"></i>掲示板</a>
+                  <a class="nav-link" href="/boards"><i class="far fa-clipboard" style="font-size: 20px;"></i>掲示板</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
