@@ -158,6 +158,12 @@ BoardComment.create!(board_id: 1, user_id: 1, content: "てんや！！！")
 
 
 Room.delete_all
+Room.create!(id: 1)
+Room.create!(id: 2)
+Room.create!(id: 3)
+Room.create!(id: 4)
+Room.create!(id: 5)
+Room.create!(id: 6)
 
 
 Entry.delete_all
