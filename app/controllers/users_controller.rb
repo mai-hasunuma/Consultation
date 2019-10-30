@@ -51,6 +51,7 @@ class UsersController < ApplicationController
             if cu.room_id == u.room_id then
               @isRoom = true
               @roomId = cu.room_id
+              break
             end
           end
         end
