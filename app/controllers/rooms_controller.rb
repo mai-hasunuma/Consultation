@@ -29,7 +29,7 @@ class RoomsController < ApplicationController
   end
 
   def index
-    @entry_rooms = current_user.entry_rooms.page(params[:page]).per(10)
+    @entry_rooms = current_user.entry_rooms.page(params[:page]).per(10).order(created_at: "DESC")
     @room_comments = RoomComment.page(params[:page])
   end
 
