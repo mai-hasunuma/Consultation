@@ -40,7 +40,14 @@
                     </div>
                     <div class="col-md-3">
                       <div style="text-align: left;">
-                        <%= room_comment.content %>
+                        <%= room_comment.content %><br>
+                        <% if current_user.id == room_comment.user_id %>
+                          <div style="margin-left: 210px;">
+                            <%= link_to room_comment_path(room_comment),style: 'text-decoration: none; color: #565656; font-size: 15px;', data: { confirm: "コメントを削除しますか?" }, method: :delete do  %>
+                              <i class="fas fa-trash">削除</i>
+                            <% end %>
+                          </div>
+                        <% end %>
                         <%= link_to user_path(room_comment.user) ,style: 'text-decoration: none; color: #565656;' do %>
                           <p style="text-align:right; font-size: 10px;">by <%= room_comment.user.name %>  <%= room_comment.created_at.strftime("%m/%d %H:%M") %></p>
                         <% end %>
@@ -50,7 +57,7 @@
                       <% if room_comment.user.image.attached? %>
                         <%= link_to user_path(room_comment.user) ,style: 'text-decoration: none; color: #565656;' do %>
                           <%= image_tag url_for(room_comment.user.image), size: 50  %>
-                          <% end %>
+                        <% end %>
                       <% else %>
                         <%= link_to user_path(room_comment.user) ,style: 'text-decoration: none; color: #565656;' do %>
                           <%= image_tag "no_image.png", size: 40 %>

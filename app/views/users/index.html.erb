@@ -31,28 +31,30 @@
       <%= paginate @users %>
     </div>
 
-    <div class="col-md-3">
-      <div style="padding: 0.2em 0.5em; margin: 2em 0; color: #565656; background: #ffeaea; box-shadow: 0px 0px 0px 10px #ffeaea; border: dashed 2px #ffc3c3; border-radius: 8px;">
-        <h2 style="text-align: center;"><%= current_user.name %>さんの<br>おすすめユーザ</h2>
-        <% @recommended_order.first(5).each do |key, value| %>
-          <div style="margin-bottom: 20px;">
-            <% user = User.find(key) %>
-            <%= link_to user_path(user.id),style: 'text-decoration: none; color: #565656;' do %>
-              <% if user.image.attached? %>
-                <%= image_tag user.image, size: "100x100", style: "margin-left: 30px;" %>
-              <% else %>
-                <%= image_tag "no_image.png", size: "100x100", style: "margin-left: 30px;" %>
+    <% if user_signed_in? %>
+      <div class="col-md-3">
+        <div style="padding: 0.2em 0.5em; margin: 2em 0; color: #565656; background: #ffeaea; box-shadow: 0px 0px 0px 10px #ffeaea; border: dashed 2px #ffc3c3; border-radius: 8px;">
+          <h2 style="text-align: center;"><%= current_user.name %>さんの<br>おすすめユーザ</h2>
+          <% @recommended_order.first(5).each do |key, value| %>
+            <div style="margin-bottom: 20px;">
+              <% user = User.find(key) %>
+              <%= link_to user_path(user.id),style: 'text-decoration: none; color: #565656;' do %>
+                <% if user.image.attached? %>
+                  <%= image_tag user.image, size: "100x100", style: "margin-left: 30px;" %>
+                <% else %>
+                  <%= image_tag "no_image.png", size: "100x100", style: "margin-left: 30px;" %>
+                <% end %>
               <% end %>
-            <% end %>
-            <%= link_to user_path(user.id),style: 'text-decoration: none; color: #565656;' do %>
-              <span style="margin-left: 30px;">
-                <%= user.name %></br>
-              </span>
-            <% end %>
-          </div>
-        <% end %>
+              <%= link_to user_path(user.id),style: 'text-decoration: none; color: #565656;' do %>
+                <span style="margin-left: 30px;">
+                  <%= user.name %></br>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
     <div class="col-md-1"></div>
   </div>
 </div>

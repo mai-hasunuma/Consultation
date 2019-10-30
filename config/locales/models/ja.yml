@@ -1,0 +1,15 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      board: 掲示板
+    attributes:
+      user:
+        name: 名前
+        housewife_year: 主婦歴
+        introduction: 自己紹介
+        email: メールアドレス
+        password: パスワード
+      board:
+        title: タイトル
+        content: 内容

@@ -42,6 +42,7 @@ AdminUser.create(email: '<%= ENV["EMAIL_admin"] %>', password: '<%= ENV["PASSWOR
 
 # ユーザ
 User.with_deleted.delete_all
+
 User.create(name: "みゆう", email: "<%= ENV["EMAIL1"] %>", password: "<%= ENV["PASSWORD_test"] %>", password_confirmation: "<%= ENV["PASSWORD"] %>", housewife_year: 4, introduction: "結婚３年目で１才の子供を保育園に預けながら時短で働いています。最近産休から仕事に復帰しました。子供の夜泣きで寝不足の日々ですが、子供は最高に可愛いです。育児と仕事の両立で忙しいですが、日々充実しています。子育て中のワーママさん、先輩ママさん、仲良くしてください。よろしくお願いいたします。")
 User.create(name: "まさん", email: "<%= ENV["EMAIL2"] %>", password: "<%= ENV["PASSWORD_user"] %>", password_confirmation: "<%= ENV["PASSWORD"] %>", housewife_year: 10, introduction: "来年息子が小学校に上がります。やっと子育ても少し落ち着いてきましたが、働いているので小１の壁が不安です。先輩ママさん仲良くしてくださいっ")
 User.create(name: "トントン", email: "<%= ENV["EMAIL3"] %>", password: "<%= ENV["PASSWORD_user"] %>", password_confirmation: "<%= ENV["PASSWORD"] %>", housewife_year: 17, introduction: "子供が学校で突然いじめられてしまいました。学校に相談しているのですが、なかなか治らず学校に行くことができません。旦那が単身赴任なので心細いです。")
@@ -50,6 +51,7 @@ User.create(name: "りえ", email: "<%= ENV["EMAIL5"] %>", password: "<%= ENV["P
 User.create(name: "咲", email: "<%= ENV["EMAIL6"] %>", password: "<%= ENV["PASSWORD_user"] %>", password_confirmation: "<%= ENV["PASSWORD"] %>", housewife_year: 20, introduction: "子供が今年大学受験です。気が早いですが、これが終わったら子育ても終わりだなと思いホッとしている反面悲しいです。子育ても落ち着いてきたので医療事務の資格を取って働こうと思っています。よろしくお願いします")
 User.create(name: "千春", email: "<%= ENV["EMAIL7"] %>", password: "<%= ENV["PASSWORD_user"] %>", password_confirmation: "<%= ENV["PASSWORD"] %>", housewife_year: 25, introduction: "今年子供の就職活動が終了し、３人の娘の子育てが終わりました。皆さんの相談に乗ります")
 User.create(name: "れいか", email: "<%= ENV["EMAIL8"] %>", password: "<%= ENV["PASSWORD_user"] %>", password_confirmation: "<%= ENV["PASSWORD"] %>", housewife_year: 13, introduction: "娘が小学校６年生で受験生です。成績が伸び悩んでいて、厳しい状況です。親としてできることを探しにこちらに登録しました。")
+
 
 #ユーザの画像
 user1 = User.find(1)
@@ -144,4 +146,62 @@ BoardSelectedCategory.create!(board_id: 3, board_category_id: 2)
 BoardSelectedCategory.create!(board_id: 3, board_category_id: 7)
 BoardSelectedCategory.create!(board_id: 3, board_category_id: 8)
 BoardSelectedCategory.create!(board_id: 3, board_category_id: 11)
+
+BoardComment.delete_all
+BoardComment.create!(board_id: 1, user_id: 2, content: "我が家はカレーライスです♪")
+BoardComment.create!(board_id: 1, user_id: 3, content: "私は帰りが遅くなってしまったのでてんやです")
+BoardComment.create!(board_id: 1, user_id: 1, content: "てんや！！！")
+
+
+Room.delete_all
+Room.create!(id: 1)
+Room.create!(id: 2)
+Room.create!(id: 3)
+Room.create!(id: 4)
+Room.create!(id: 5)
+Room.create!(id: 6)
+
+
+Entry.delete_all
+Entry.create!(room_id: 1, user_id: 1)
+Entry.create!(room_id: 1, user_id: 2)
+Entry.create!(room_id: 2, user_id: 1)
+Entry.create!(room_id: 2, user_id: 3)
+Entry.create!(room_id: 3, user_id: 1)
+Entry.create!(room_id: 3, user_id: 4)
+Entry.create!(room_id: 4, user_id: 1)
+Entry.create!(room_id: 4, user_id: 5)
+Entry.create!(room_id: 5, user_id: 1)
+Entry.create!(room_id: 5, user_id: 6)
+Entry.create!(room_id: 6, user_id: 1)
+Entry.create!(room_id: 6, user_id: 7)
+
+RoomComment.delete_all
+RoomComment.create!(room_id: 1, user_id: 2, content: "初めまして！仲良くしてください")
+RoomComment.create!(room_id: 1, user_id: 1, content: "よろしくお願いします")
+RoomComment.create!(room_id: 2, user_id: 3, content: "私でよければなんでも相談してください")
+RoomComment.create!(room_id: 2, user_id: 1, content: "心強いです＞＜！！！")
+RoomComment.create!(room_id: 3, user_id: 4, content: "仕事しながら子育てしてます。産休明け不安ですよね。")
+RoomComment.create!(room_id: 3, user_id: 1, content: "そうなんです。子供といる時間が短くなると思うと悲しいです")
+RoomComment.create!(room_id: 4, user_id: 5, content: "りえと言います。よかったら話しましょー")
+RoomComment.create!(room_id: 4, user_id: 1, content: "是非是非")
+RoomComment.create!(room_id: 5, user_id: 6, content: "初めまして。お力になれると思って連絡してみました。")
+RoomComment.create!(room_id: 5, user_id: 1, content: "連絡嬉しいです。")
+
+Notification.delete_all
+Notification.create!(visitor_id: 2, visited_id: 1, room_comment_id:1, action: "room_comment", check: "false")
+Notification.create!(visitor_id: 1, visited_id: 2, room_comment_id:2, action: "room_comment", check: "false")
+Notification.create!(visitor_id: 3, visited_id: 1, room_comment_id:3, action: "room_comment", check: "false")
+Notification.create!(visitor_id: 1, visited_id: 3, room_comment_id:4, action: "room_comment", check: "false")
+Notification.create!(visitor_id: 4, visited_id: 1, room_comment_id:5, action: "room_comment", check: "false")
+Notification.create!(visitor_id: 1, visited_id: 4, room_comment_id:6, action: "room_comment", check: "false")
+Notification.create!(visitor_id: 5, visited_id: 1, room_comment_id:7, action: "room_comment", check: "false")
+Notification.create!(visitor_id: 1, visited_id: 5, room_comment_id:8, action: "room_comment", check: "false")
+Notification.create!(visitor_id: 6, visited_id: 1, room_comment_id:9, action: "room_comment", check: "false")
+Notification.create!(visitor_id: 1, visited_id: 6, room_comment_id:10, action: "room_comment", check: "false")
+Notification.create!(visitor_id: 2, visited_id: 1, board_comment_id:1, action: "board_comment", check: "false")
+Notification.create!(visitor_id: 3, visited_id: 1, board_comment_id:2, action: "board_comment", check: "false")
+Notification.create!(visitor_id: 3, visited_id: 2, board_comment_id:2, action: "board_comment", check: "false")
+Notification.create!(visitor_id: 1, visited_id: 2, board_comment_id:3, action: "board_comment", check: "false")
+Notification.create!(visitor_id: 1, visited_id: 3, board_comment_id:3, action: "board_comment", check: "false")
 

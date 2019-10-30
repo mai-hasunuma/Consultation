@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
 
 
   def edit
@@ -10,7 +12,14 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
+    if @user.update(user_params)
+      redirect_to user_path(current_user)
+    else
+      @trouble_categories = TroubleCategory.all
+      @user.current_troubles.find_or_initialize_by(user_id: @user.id)
+      @user.past_troubles.find_or_initialize_by(user_id: @user.id)
+      render 'edit'
+    end
       # current_trouble_category_idとpast_trouble_category_idを受け渡しているので下記の記述は不要となる
       # ここから
       # params[:user][:current_troubles][:trouble_category_ids].each do |current_trouble|
@@ -27,45 +36,51 @@ class UsersController < ApplicationController
       #   b.save!
       # end
       # ここまで
-    redirect_to users_path
   end
 
   def show
     @user = User.find(params[:id])
-    @currentUserEntry = Entry.where(user_id: current_user.id)
-    @userEntry = Entry.where(user_id: @user.id)
-    if @user.id == current_user.id
-    else
-      @currentUserEntry.each do |cu|
-        @userEntry.each do |u|
-          if cu.room_id == u.room_id then
-            @isRoom = true
-            @roomId = cu.room_id
+    # binding.pry
+    if user_signed_in?
+      @currentUserEntry = Entry.where(user_id: current_user.id)
+      @userEntry = Entry.where(user_id: @user.id)
+      if @user.id == current_user.id
+      else
+        @currentUserEntry.each do |cu|
+          @userEntry.each do |u|
+            if cu.room_id == u.room_id then
+              @isRoom = true
+              @roomId = cu.room_id
+              break
+            end
           end
         end
-      end
-      if @isRoom
-      else
-        @room = Room.new
-        @entry = Entry.new
+        if @isRoom
+        else
+          @room = Room.new
+          @entry = Entry.new
+        end
       end
     end
   end
 
   def index
-    current_user_current_trouble_ids = current_user.current_trouble_category_ids
-    users = User.all.page(params[:page]).all.page(params[:page]).per(10)
-    matched_current_trouble_count_hash = {}
-    # おすすめユーザ表示
-    users.each do |user|
-      unless user == current_user
-        other_user_current_trouble_ids = user.past_trouble_category_ids
-        matched_current_trouble_ids = current_user_current_trouble_ids & other_user_current_trouble_ids
-        matched_current_trouble_count_hash.merge!(user.id => matched_current_trouble_ids.count)
+
+    if user_signed_in?
+      current_user_current_trouble_ids = current_user.current_trouble_category_ids
+      users = User.all
+      matched_current_trouble_count_hash = {}
+      # おすすめユーザ表示
+      users.each do |user|
+        unless user == current_user
+          other_user_current_trouble_ids = user.past_trouble_category_ids
+          matched_current_trouble_ids = current_user_current_trouble_ids & other_user_current_trouble_ids
+          matched_current_trouble_count_hash.merge!(user.id => matched_current_trouble_ids.count)
+        end
       end
+      # value順に並び替える　.sort_by{ |_, v| -v } https://qiita.com/mnishiguchi/items/9095ac989ed7d51fe395
+      @recommended_order = Hash[ matched_current_trouble_count_hash.sort_by{ |_, v| -v } ]
     end
-    # value順に並び替える　.sort_by{ |_, v| -v } https://qiita.com/mnishiguchi/items/9095ac989ed7d51fe395
-    @recommended_order = Hash[ matched_current_trouble_count_hash.sort_by{ |_, v| -v } ]
 
     # 検索機能
     @q = User.ransack(params[:q])
@@ -81,6 +96,8 @@ class UsersController < ApplicationController
     @q = User.ransack(housewife_year_gteq: params[:q][:housewife_year_gteq], housewife_year_lt: params[:q][:housewife_year_lt],
        introduction_cont_any: search_words, current_trouble_categories_id_in: params[:q][:current_trouble_categories_id_in], past_trouble_categories_id_in: params[:q][:past_trouble_categories_id_in])
     @users = @q.result(distinct: true).page(params[:page]).per(10)
+    @recommended_order = Hash[ matched_current_trouble_count_hash.sort_by{ |_, v| -v } ]
+
   end
 
   def search
@@ -102,6 +119,14 @@ class UsersController < ApplicationController
   end
 
   private
+  def ensure_correct_user
+    @user = User.find_by(id: params[:id])
+    if current_user.id != @user.id
+     redirect_to users_path
+    end
+  end
+
+
   def user_params
   params.require(:user).permit(:name, :housewife_year, :image, :introduction,
                                {current_trouble_category_ids: []},
