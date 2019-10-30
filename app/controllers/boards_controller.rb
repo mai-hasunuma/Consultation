@@ -11,12 +11,6 @@ class BoardsController < ApplicationController
     @board = Board.new(board_params)
     @board.user_id = current_user.id
     if @board.save
-      #   @board.board_categories.each do |b|
-      #     @board_category = BoardCategory.new
-      #     @board_category.id = b.id
-      #     @board_category.name = b.name
-      #   end
-      # end
       redirect_to boards_path
     else
       @board_categories = BoardCategory.all
@@ -48,11 +42,10 @@ class BoardsController < ApplicationController
   end
 
   def index
-    #@b = Board.ransack(params[:q])
     @board_categories = BoardCategory.all
     if params[:q].blank?
       @b = Board.ransack(board_comments_content_or_title_or_content_cont_any: nil)
-      @boards = @b.result(distinct: true).page(params[:page]).per(10)
+      @boards = @b.result(distinct: true).page(params[:page]).per(10).order(created_at: "DESC")
       return
     end
 
