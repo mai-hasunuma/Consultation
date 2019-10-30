@@ -5,6 +5,7 @@
     <div class="col-md-9">
       <h1>掲示板新規作成</h1>
       <%= form_with model: @board, local: true do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
         <div class="field">
           <label>カテゴリー</label>
           <%= f.collection_check_boxes :board_category_ids, @board_categories, :id, :name, include_hidden: false do |b| %>

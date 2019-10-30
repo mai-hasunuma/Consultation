@@ -2,10 +2,10 @@ Rails.application.routes.draw do
   get 'notifications/index'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  get 'rooms/show'
-  get 'rooms/index'
-  get 'boards/show'
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: "users/registrations",
+    sessions: "users/sessions"
+  }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # home
   root 'home#top'
@@ -15,14 +15,17 @@ Rails.application.routes.draw do
   get 'search', to: 'users#search'
 
   # board
-  resources :boards, only: [:new, :create, :edit, :update, :index, :show]
+  resources :boards, only: [:new, :create, :edit, :update, :index, :show, :destroy]
   get 'search', to: 'boards#search'
+
+  # board_comment
+  resources :board_comments, only: [:create, :destroy]
 
   # room
   resources :rooms, only: [:create, :show, :index]
 
   # room_comment
-  resources :room_comments, only: :create
+  resources :room_comments, only: [:create, :destroy]
 
   # notification
   resources :notifications, only: :index

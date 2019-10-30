@@ -1,4 +1,5 @@
 class RoomsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :show, :index]
 
   def create
     @room = Room.new
@@ -31,5 +32,6 @@ class RoomsController < ApplicationController
     @entry_rooms = current_user.entry_rooms.page(params[:page]).per(10)
     @room_comments = RoomComment.page(params[:page])
   end
+
 
 end

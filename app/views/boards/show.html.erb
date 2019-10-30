@@ -37,7 +37,9 @@
 
       <div class="row">
         <div class="col-md-1"></div>
-        イメージ画像
+          <% if @board.images.attached? %>
+            イメージ画像
+          <% end %>
       </div>
       <div class="row" style="margin-top: 20px;">
         <div class="col-md-1"></div>
@@ -63,13 +65,20 @@
                     <div class="col-md-3">
                       <div style="text-align: left;">
                         <%= board_comment.content %>
-                        <%= link_to user_path(@board.user),style: 'text-decoration: none; color: #565656;' do %>
+                        <% if current_user.id == board_comment.user_id %>
+                          <div style="margin-left: 210px;">
+                            <%= link_to board_comment_path(board_comment),style: 'text-decoration: none; color: #565656; font-size: 15px;', data: { confirm: "コメントを削除しますか?" }, method: :delete do  %>
+                              <i class="fas fa-trash">削除</i>
+                            <% end %>
+                          </div>
+                        <% end %>
+                        <%= link_to user_path(board_comment.user),style: 'text-decoration: none; color: #565656;' do %>
                           <p style="text-align: right;font-size: 10px;">by <%= board_comment.user.name %>  <%= board_comment.created_at.strftime("%m/%d %H:%M") %></p>
                         <% end %>
                       </div>
                     </div>
                     <div class="col-md-1">
-                      <%= link_to user_path(@board.user),style: 'text-decoration: none; color: #565656;' do %>
+                      <%= link_to user_path(board_comment.user),style: 'text-decoration: none; color: #565656;' do %>
                         <% if board_comment.user.image.attached? %>
                           <%= image_tag url_for(board_comment.user.image), size: 50  %>
                         <% else %>
@@ -82,7 +91,7 @@
                 <!-- カレントユーザ以外の表示方法 -->
                 <div class="row">
                   <div class="col-md-1">
-                    <%= link_to user_path(@board.user),style: 'text-decoration: none; color: #565656;' do %>
+                    <%= link_to user_path(board_comment.user),style: 'text-decoration: none; color: #565656;' do %>
                       <% if board_comment.user.image.attached? %>
                         <%= image_tag url_for(board_comment.user.image), size: 50  %>
                       <% else %>
@@ -92,7 +101,7 @@
                   </div>
                   <div class="col-md-3">
                     <%= board_comment.content %>
-                    <%= link_to user_path(@board.user),style: 'text-decoration: none; color: #565656;' do %>
+                    <%= link_to user_path(board_comment.user),style: 'text-decoration: none; color: #565656;' do %>
                       <p style="text-align:right; font-size: 10px;">by <%= board_comment.user.name %> <%= board_comment.created_at.strftime("%m/%d %H:%M") %></p>
                     <% end %>
                   </div>
@@ -101,21 +110,21 @@
             <% end %>
           </div>
         </div>
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-1">
-            </div>
-            <div class="col-md-8">
-              <form>
-                <textarea cols="100" rows="3" placeholder="コメントを入力" style="border-radius: 9px;"></textarea>
-                <input type="submit" value="投稿" onClick="postBoardMessage()" />
-              </form>
+        <% if user_signed_in? %>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-1">
+              </div>
+              <div class="col-md-8">
+                <form>
+                  <textarea cols="100" rows="3" placeholder="コメントを入力" style="border-radius: 9px;"></textarea>
+                  <input type="submit" value="投稿" onClick="postBoardMessage()" />
+                </form>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       </div>
-
-
     </div>
   </div>
 </div>

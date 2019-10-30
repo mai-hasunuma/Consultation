@@ -29,10 +29,30 @@ App.board = App.cable.subscriptions.create("BoardChannel", {
     textleft.style = "text-align: left;";
     textleft.innerText = data.message;
 
+　　var deletelinkdiv = document.createElement('div')
+    deletelinkdiv.style = "margin-left: 210px;"
+
+    var deletelink = document.createElement('a');
+    deletelink.style = "text-decoration: none; color: #565656; font-size: 15px;"
+    // dataconfirm
+    deletelink.rel = "nofollow"
+    deletelink.setAttribute('data-confirm', '削除しますか？')
+    deletelink.href = "/board_comments/" + data.id;
+    deletelink.setAttribute('data-method', 'delete')
+
+    var trash = document.createElement('i');
+    trash.className = "fas fa-trash";
+    trash.innerText = "削除";
+    trash.addAriaHidden = "true";
+
+    deletelink.appendChild(trash);
+    deletelinkdiv.appendChild(deletelink);
+
     var username = document.createElement('p');
     username.style = "text-align: right; font-size: 10px;";
     username.innerText = "by " + data.name + data.created_at;
 
+　　textleft.appendChild(deletelinkdiv);
     textleft.appendChild(username);
 
     col3.appendChild(textleft);

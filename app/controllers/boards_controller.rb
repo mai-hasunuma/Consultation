@@ -1,4 +1,6 @@
 class BoardsController < ApplicationController
+    before_action :authenticate_user!, only: [:new, :create, :edit, :edit, :update, :destroy]
+    before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
   def new
     @board = Board.new
     @board_categories = BoardCategory.all
@@ -8,14 +10,19 @@ class BoardsController < ApplicationController
   def create
     @board = Board.new(board_params)
     @board.user_id = current_user.id
-    @board.save
+    if @board.save
       #   @board.board_categories.each do |b|
       #     @board_category = BoardCategory.new
       #     @board_category.id = b.id
       #     @board_category.name = b.name
       #   end
       # end
-    redirect_to boards_path
+      redirect_to boards_path
+    else
+      @board_categories = BoardCategory.all
+      @board_category = @board.board_categories.build
+      render 'new'
+    end
   end
 
   def edit
@@ -26,8 +33,13 @@ class BoardsController < ApplicationController
 
   def update
     @board = Board.find(params[:id])
-    @board.update(board_params)
-    redirect_to board_path(@board)
+    if @board.update(board_params)
+      redirect_to board_path(@board)
+    else
+    @board_categories = BoardCategory.all
+    @board_category = @board.board_categories.build
+    render 'edit'
+    end
   end
 
   def show
@@ -60,7 +72,20 @@ class BoardsController < ApplicationController
     @boards = @b.result(distinct: true).page(params[:page]).per(10)
   end
 
+  def destroy
+    @board = Board.find(params[:id])
+    @board.destroy
+    redirect_to boards_path
+  end
+
+
   private
+  def ensure_correct_user
+    @board = Board.find_by(id: params[:id])
+    if current_user.id != @board.user_id
+     redirect_to boards_path
+    end
+  end
   def board_params
     params.require(:board).permit(:title, :content, images: [], board_category_ids: [] )
   end

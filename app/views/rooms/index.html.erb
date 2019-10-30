@@ -3,7 +3,7 @@
     <div class="col-md-1"></div>
     <div class="col-md-8", style="margin: 20px 0 20px 0;">
       <h1><%= current_user.name %>さんの　DM一覧画面</h1>
-      <% current_user.entry_rooms.each do |r| %>
+      <% @entry_rooms.each do |r| %>
         <% r.entries.each do |e| %>
           <% unless e.user_id == current_user.id %>
             <%= link_to room_path(r) do %>
