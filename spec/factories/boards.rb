@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :board do
     sequence(:title) { |n| "title#{n}" }
@@ -8,4 +10,3 @@ FactoryBot.define do
     end
   end
 end
-

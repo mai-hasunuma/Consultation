@@ -1,7 +1,8 @@
-class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :update, :destroy]
-  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
+# frozen_string_literal: true
 
+class UsersController < ApplicationController
+  before_action :authenticate_user!, only: %i[edit update destroy]
+  before_action :ensure_correct_user, only: %i[edit update destroy]
 
   def edit
     @user = User.find(params[:id])
@@ -31,11 +32,11 @@ class UsersController < ApplicationController
       else
         @currentUserEntry.each do |cu|
           @userEntry.each do |u|
-            if cu.room_id == u.room_id then
-              @isRoom = true
-              @roomId = cu.room_id
-              break
-            end
+            next unless cu.room_id == u.room_id
+
+            @isRoom = true
+            @roomId = cu.room_id
+            break
           end
         end
         if @isRoom
@@ -48,21 +49,20 @@ class UsersController < ApplicationController
   end
 
   def index
-
     if user_signed_in?
       current_user_current_trouble_ids = current_user.current_trouble_category_ids
       users = User.all
       matched_current_trouble_count_hash = {}
       # おすすめユーザ表示
       users.each do |user|
-        unless user == current_user
-          other_user_current_trouble_ids = user.past_trouble_category_ids
-          matched_current_trouble_ids = current_user_current_trouble_ids & other_user_current_trouble_ids
-          matched_current_trouble_count_hash.merge!(user.id => matched_current_trouble_ids.count)
-        end
+        next if user == current_user
+
+        other_user_current_trouble_ids = user.past_trouble_category_ids
+        matched_current_trouble_ids = current_user_current_trouble_ids & other_user_current_trouble_ids
+        matched_current_trouble_count_hash.merge!(user.id => matched_current_trouble_ids.count)
       end
       # value順に並び替える　.sort_by{ |_, v| -v } https://qiita.com/mnishiguchi/items/9095ac989ed7d51fe395
-      @recommended_order = Hash[ matched_current_trouble_count_hash.sort_by{ |_, v| -v } ]
+      @recommended_order = Hash[matched_current_trouble_count_hash.sort_by { |_, v| -v }]
     end
 
     # 検索機能
@@ -77,10 +77,9 @@ class UsersController < ApplicationController
 
     search_words = params[:q][:introduction_cont_any].split(/[,\n\p{blank}]+/)
     @q = User.ransack(housewife_year_gteq: params[:q][:housewife_year_gteq], housewife_year_lt: params[:q][:housewife_year_lt],
-       introduction_cont_any: search_words, current_trouble_categories_id_in: params[:q][:current_trouble_categories_id_in], past_trouble_categories_id_in: params[:q][:past_trouble_categories_id_in])
+                      introduction_cont_any: search_words, current_trouble_categories_id_in: params[:q][:current_trouble_categories_id_in], past_trouble_categories_id_in: params[:q][:past_trouble_categories_id_in])
     @users = @q.result(distinct: true).page(params[:page]).per(10)
-    @recommended_order = Hash[ matched_current_trouble_count_hash.sort_by{ |_, v| -v } ]
-
+    @recommended_order = Hash[matched_current_trouble_count_hash.sort_by { |_, v| -v }]
   end
 
   def search
@@ -90,37 +89,33 @@ class UsersController < ApplicationController
 
   def destroy
     current_user.destroy
-    #コントローラでログアウトするときは下記のように書く
+    # コントローラでログアウトするときは下記のように書く
     sign_out current_user
     redirect_to root_path
   end
 
   protected
+
   def update_resource(resource, params)
     resource.update_without_password(params)
   end
 
   private
+
   def ensure_correct_user
     @user = User.find_by(id: params[:id])
-    if current_user.id != @user.id
-     redirect_to users_path
-    end
+    redirect_to users_path if current_user.id != @user.id
   end
 
-
   def user_params
-  params.require(:user).permit(:name, :housewife_year, :image, :introduction,
-                               {current_trouble_category_ids: []},
-                               {past_trouble_category_ids: []},
-                               )
+    params.require(:user).permit(:name, :housewife_year, :image, :introduction,
+                                 { current_trouble_category_ids: [] },
+                                 past_trouble_category_ids: [])
   end
 
   def search_params
     params.require(:q).permit(:introduction_cont, :housewife_year_gteq, :housewife_year_lt,
-                              {current_trouble_categories_id_in: []},
-                              {past_trouble_categories_id_in: []},
-                              )
+                              { current_trouble_categories_id_in: [] },
+                              past_trouble_categories_id_in: [])
   end
-
 end

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class CreateBoards < ActiveRecord::Migration[5.2]
   def change
     create_table :boards do |t|
       t.integer :user_id
-      t.string :title, null: false, default: ""
+      t.string :title, null: false, default: ''
       t.text :content
       t.string :image
 

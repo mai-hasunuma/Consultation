@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RoomComment < ApplicationRecord
   validates :content, presence: true
   belongs_to :room

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class BoardsController < ApplicationController
-    before_action :authenticate_user!, only: [:new, :create, :edit, :edit, :update, :destroy]
-    before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
+  before_action :authenticate_user!, only: %i[new create edit edit update destroy]
+  before_action :ensure_correct_user, only: %i[edit update destroy]
   def new
     @board = Board.new
     @board_categories = BoardCategory.all
@@ -30,9 +32,9 @@ class BoardsController < ApplicationController
     if @board.update(board_params)
       redirect_to board_path(@board)
     else
-    @board_categories = BoardCategory.all
-    @board_category = @board.board_categories.build
-    render 'edit'
+      @board_categories = BoardCategory.all
+      @board_category = @board.board_categories.build
+      render 'edit'
     end
   end
 
@@ -45,7 +47,7 @@ class BoardsController < ApplicationController
     @board_categories = BoardCategory.all
     if params[:q].blank?
       @b = Board.ransack(board_comments_content_or_title_or_content_cont_any: nil)
-      @boards = @b.result(distinct: true).page(params[:page]).per(10).order(created_at: "DESC")
+      @boards = @b.result(distinct: true).page(params[:page]).per(10).order(created_at: 'DESC')
       return
     end
 
@@ -71,20 +73,18 @@ class BoardsController < ApplicationController
     redirect_to boards_path
   end
 
-
   private
+
   def ensure_correct_user
     @board = Board.find_by(id: params[:id])
-    if current_user.id != @board.user_id
-     redirect_to boards_path
-    end
+    redirect_to boards_path if current_user.id != @board.user_id
   end
+
   def board_params
-    params.require(:board).permit(:title, :content, images: [], board_category_ids: [] )
+    params.require(:board).permit(:title, :content, images: [], board_category_ids: [])
   end
 
   def search_params
     params.require(:q).permit!
   end
-
 end

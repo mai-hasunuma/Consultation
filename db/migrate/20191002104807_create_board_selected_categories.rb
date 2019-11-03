@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateBoardSelectedCategories < ActiveRecord::Migration[5.2]
   def change
     create_table :board_selected_categories do |t|

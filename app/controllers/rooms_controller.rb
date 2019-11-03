@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class RoomsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :show, :index]
+  before_action :authenticate_user!, only: %i[create show index]
 
   def create
     @room = Room.new
@@ -19,7 +21,7 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
-    if Entry.where(:user_id => current_user.id, :room_id => @room.id).present?
+    if Entry.where(user_id: current_user.id, room_id: @room.id).present?
       @room_comments = @room.room_comments
       @room_comment = RoomComment.new
       @entries = @room.entries
@@ -29,9 +31,7 @@ class RoomsController < ApplicationController
   end
 
   def index
-    @entry_rooms = current_user.entry_rooms.page(params[:page]).per(10).order(created_at: "DESC")
+    @entry_rooms = current_user.entry_rooms.page(params[:page]).per(10).order(created_at: 'DESC')
     @room_comments = RoomComment.page(params[:page])
   end
-
-
 end

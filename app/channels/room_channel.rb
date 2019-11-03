@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class RoomChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "room_channel"
+    stream_from 'room_channel'
   end
 
   def unsubscribed
@@ -14,9 +16,9 @@ class RoomChannel < ApplicationCable::Channel
     room.create_notification_room_comment!(current_user, room_comment.id)
     image = current_user.image
     if current_user.image.attached?
-      ActionCable.server.broadcast 'room_channel', {name: current_user.name, message: data['message'], created_at: room_comment.created_at.strftime("%m/%d %H:%M"), id: room_comment.id , image: Rails.application.routes.url_helpers.polymorphic_url(image)}
+      ActionCable.server.broadcast 'room_channel', name: current_user.name, message: data['message'], created_at: room_comment.created_at.strftime('%m/%d %H:%M'), id: room_comment.id, image: Rails.application.routes.url_helpers.polymorphic_url(image)
     else
-      ActionCable.server.broadcast 'room_channel', {name: current_user.name, message: data['message'], created_at: room_comment.created_at.strftime("%m/%d %H:%M"), id: room_comment.id , image: nil}
+      ActionCable.server.broadcast 'room_channel', name: current_user.name, message: data['message'], created_at: room_comment.created_at.strftime('%m/%d %H:%M'), id: room_comment.id, image: nil
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveNameFromRooms < ActiveRecord::Migration[5.2]
   def up
     remove_column :rooms, :name
