@@ -38,16 +38,12 @@
               <%= f.collection_check_boxes :current_trouble_category_ids, @trouble_categories, :id, :name, include_hidden: false  do |b| %>
                 <%=  b.label {b.check_box + b.text}  %>
               <% end %>
-            <%# end %>
           </div>
-      <!-- ,options: {selected: @current_troubles.ids}-->
         <p style="margin-top: 10px">過去悩んでいたこと</p>
         <div class="field">
-          <%#= f.fields_for :past_troubles do |pt| %>
             <%= f.collection_check_boxes :past_trouble_category_ids, @trouble_categories, :id, :name, include_hidden: false  do |b| %>
                 <%=  b.label {b.check_box + b.text}  %>
             <% end %>
-          <%# end %>
         </div>
 
         <%= f.submit '登録' %>
