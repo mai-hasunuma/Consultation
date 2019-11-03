@@ -1,23 +1,25 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Board, "モデルに関するテスト", type: :model do
+RSpec.describe Board, 'モデルに関するテスト', type: :model do
   describe 'アソシエーション' do
-    it "Userモデルに属している" do
+    it 'Userモデルに属している' do
       is_expected.to belong_to(:user)
     end
   end
 
   describe '実際に保存してみる' do
-    context "保存できる場合" do
-      it "user_idを入れて保存" do
+    context '保存できる場合' do
+      it 'user_idを入れて保存' do
         user = FactoryBot.create(:user)
         expect(FactoryBot.create(:board, user_id: user.id)).to be_valid
       end
-      it "contentなし" do
+      it 'contentなし' do
         user = FactoryBot.create(:user)
         expect(FactoryBot.create(:board, user_id: user.id)).to be_valid
       end
-      it "contentあり" do
+      it 'contentあり' do
         user = FactoryBot.create(:user)
         expect(FactoryBot.create(:board, user_id: user.id)).to be_valid
       end

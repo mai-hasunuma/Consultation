@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
@@ -22,13 +24,13 @@ module Consultation
 
     config.generators do |g|
       g.test_framework :rspec,
-                        fixtures: false,
-                        #ビュースペックを作成しないことを指定
-                        view_specs: false,
-                        # ヘルパーファイル用のスペックを作成しない
-                        helper_specs: false,
-                        # config/routes.rb 用のスペックファイルの作成を省略
-                        routing_specs: false
+                       fixtures: false,
+                       # ビュースペックを作成しないことを指定
+                       view_specs: false,
+                       # ヘルパーファイル用のスペックを作成しない
+                       helper_specs: false,
+                       # config/routes.rb 用のスペックファイルの作成を省略
+                       routing_specs: false
     end
   end
 end

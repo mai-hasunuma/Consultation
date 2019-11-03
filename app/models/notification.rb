@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class Notification < ApplicationRecord
   validates :action, presence: true
-  validates :check, inclusion: {in: [true, false]}
+  validates :check, inclusion: { in: [true, false] }
   # 通知の表示をデフォルトの並び順を「作成日時の降順（新しいデータから順に表示）」で指定
   default_scope -> { order(created_at: :desc) }
   belongs_to :board_comment, optional: true

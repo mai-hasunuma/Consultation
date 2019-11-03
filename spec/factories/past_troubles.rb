@@ -2,8 +2,6 @@
 
 FactoryBot.define do
   factory :past_trouble do
-
-
     trait :no_user do
       user_id {}
       trouble_category_id { 1 }
@@ -15,4 +13,3 @@ FactoryBot.define do
     end
   end
 end
-

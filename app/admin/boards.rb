@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register Board do
-  #関連付け
+  # 関連付け
   controller do
     def scoped_collection
       Board.includes(:board_comments)
@@ -12,7 +14,7 @@ ActiveAdmin.register Board do
   # Uncomment all parameters which should be permitted for assignment
   # board_comments_attributes: [:content, :_destroy]: ボードのページでboard_commentの編集削除を可能にする,
   # board_commentテーブルのカラムであるid,user_idもストロングパラメータに追加すること
-  permit_params :title, :content, :image, board_comments_attributes: [:id, :user_id, :content, :_destroy]
+  permit_params :title, :content, :image, board_comments_attributes: %i[id user_id content _destroy]
   index do
     selectable_column
     id_column
@@ -34,7 +36,7 @@ ActiveAdmin.register Board do
       row :id
       row :title
       row :content
-      panel "コメント一覧" do
+      panel 'コメント一覧' do
         paginated_collection(b.board_comments.page(params[:page]).per(30)) do
           table_for collection do
             column(:user_id)
@@ -46,11 +48,11 @@ ActiveAdmin.register Board do
   end
 
   form do |f|
-    f.inputs "Boards" do
-      f.input :user_id, as: :select, collection: User.all.map{|u|[u.name, u.id]}
+    f.inputs 'Boards' do
+      f.input :user_id, as: :select, collection: User.all.map { |u| [u.name, u.id] }
       f.input :title
       f.input :content
-      f.input :image, :as => :file
+      f.input :image, as: :file
     end
     # board_commentの編集削除　https://qiita.com/Yinaura/items/e4cad1b59afe08b7de11
     f.inputs do
@@ -61,8 +63,6 @@ ActiveAdmin.register Board do
     f.actions
   end
 
-
-
   #
   # or
   #
@@ -71,5 +71,4 @@ ActiveAdmin.register Board do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-
 end

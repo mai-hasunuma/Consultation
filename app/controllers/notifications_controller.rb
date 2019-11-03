@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class NotificationsController < ApplicationController
-    before_action :authenticate_user!, only: [:index]
+  before_action :authenticate_user!, only: [:index]
   def index
     from  = Time.now.at_beginning_of_day
     to    = (from + 30.day).at_end_of_day

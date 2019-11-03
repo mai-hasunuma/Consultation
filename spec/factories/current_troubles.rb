@@ -2,8 +2,6 @@
 
 FactoryBot.define do
   factory :current_trouble do
-
-
     trait :no_user do
       user_id {}
       trouble_category_id { 1 }

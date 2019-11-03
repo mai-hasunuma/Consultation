@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe TroubleCategory, "モデルに関するテスト", type: :model do
-
+RSpec.describe TroubleCategory, 'モデルに関するテスト', type: :model do
   describe '実際に保存してみる' do
-    #保存できるときは無し
+    # 保存できるときは無し
     # context "保存できない場合" do
     #   it "nameが空欄" do
     #     expect(FactoryBot.build(:user, :no_name)).to_not be_valid
@@ -32,5 +33,5 @@ RSpec.describe TroubleCategory, "モデルに関するテスト", type: :model d
     #   it "introductionが301文字以上" do
     #     expect(FactoryBot.build(:user, :too_long_introduction)).to_not be_valid
     #   end
-    end
+  end
 end
