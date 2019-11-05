@@ -46,7 +46,7 @@
 - MySQL
 - vagrant
 - AWS
-  - EC2(サーバー:nginx)
+  - EC2(nginx+puma)
   - RDS
 
 ### その他
