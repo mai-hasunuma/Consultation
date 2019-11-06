@@ -7,6 +7,34 @@ RSpec.describe User, 'モデルに関するテスト', type: :model do
     it 'Boardモデルを多数持っている' do
       is_expected.to have_many(:boards)
     end
+
+    it 'BoardCommentモデルを多数持っている' do
+      is_expected.to have_many(:board_comments)
+    end
+
+    it 'ActiveNotificationモデルを多数持っている' do
+      is_expected.to have_many(:active_notifications)
+    end
+
+    it 'PassiveNotificationモデルを多数持っている' do
+      is_expected.to have_many(:passive_notifications)
+    end
+
+    it 'RoomCommentモデルを多数持っている' do
+      is_expected.to have_many(:room_comments)
+    end
+
+    it 'Entryモデルを多数持っている' do
+      is_expected.to have_many(:entries)
+    end
+
+    it 'CurrentTroubleモデルを多数持っている' do
+      is_expected.to have_many(:current_troubles)
+    end
+
+    it 'PastTroubleモデルを多数持っている' do
+      is_expected.to have_many(:past_troubles)
+    end
   end
 
   describe '実際に保存してみる' do
