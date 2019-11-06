@@ -28,9 +28,15 @@ FactoryBot.define do
     end
 
 
-    trait :create_with_board_selected_troubles do
+    trait :create_with_board_selected_categories do
       after(:create) do |board|
         create_list(:board_selected_categories, board: board, board_category: create(:board_category))
+      end
+    end
+
+    trait :create_with_board_comments do
+      after(:create) do |board|
+        create_list(:board_comments, 3, board: board, user: create(:user))
       end
     end
   end
