@@ -24,16 +24,6 @@ RSpec.describe BoardComment, 'モデルに関するテスト', type: :model do
         user = FactoryBot.create(:user)
         expect(FactoryBot.create(:board_comment, user_id: user.id, board_id: board.id)).to be_valid
       end
-
-      it '画像データあり' do
-        board_comment = FactoryBot.build(:board_comment)
-        board_comment.images.attach(io: File.open(Dir.pwd + '/spec/files/test.jpg'), filename: 'test.jpg', content_type: 'image/jpg')
-        expect(board_comment.images).to be_an_instance_of(ActiveStorage::Attached::Many)
-      end
-
-      it '画像データなし' do
-        expect(FactoryBot.build(:board_comment)).to be_valid
-      end
     end
 
     context '保存できない場合' do
