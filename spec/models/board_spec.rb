@@ -31,7 +31,7 @@ RSpec.describe Board, 'モデルに関するテスト', type: :model do
       end
 
       it '画像データなし' do
-        expect(FactoryBot.create(:board)).to be_valid
+        expect(FactoryBot.build(:board)).to be_valid
       end
     end
 
