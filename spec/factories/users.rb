@@ -48,8 +48,7 @@ FactoryBot.define do
 
   trait :create_with_boards do
     after(:create) do |user|
-      create_list(:board, title: 'Faker::Lorem.characters(number: 5)', content: 'Faker::Lorem.characters(number: 5)')
-      create(:user_board, board: board, user: user)
+      create_list(:board, 3, user: user)
     end
   end
 
