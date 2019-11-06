@@ -42,10 +42,6 @@ FactoryBot.define do
     end
   end
 
-  # trait :create_with_image do
-  #   profile_image {Refile::FileDouble.new("dummy", "logo.png", content_type: "image/png")}
-  # end
-
   trait :create_with_boards do
     after(:create) do |user|
       create_list(:board, 3, user: user)
@@ -55,6 +51,12 @@ FactoryBot.define do
   trait :create_with_current_troubles do
     after(:create) do |user|
       create_list(:current_trouble, user: user, trouble_category: create(:trouble_category))
+    end
+  end
+
+  trait :create_with_entries do
+    after(:create) do |user|
+      create_list(:entry, user: user, room: create(:room))
     end
   end
 end
