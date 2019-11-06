@@ -4,7 +4,7 @@ require 'faker'
 FactoryBot.define do
   password = Faker::Internet.password
 
-  factory :user do
+  factory :user, aliases: [:owner] do
     sequence(:email) { |n| "example#{n}@test.com" }
     sequence(:name) { |n| "name#{n}" }
     sequence(:housewife_year, &:to_s)
@@ -48,7 +48,8 @@ FactoryBot.define do
 
   trait :create_with_boards do
     after(:create) do |user|
-      create_list(:board, 3, user: user)
+      create_list(:board, title: 'Faker::Lorem.characters(number: 5)', content: 'Faker::Lorem.characters(number: 5)')
+      create(:user_board, board: board, user: user)
     end
   end
 

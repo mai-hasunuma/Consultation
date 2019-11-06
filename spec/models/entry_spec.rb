@@ -21,7 +21,7 @@ RSpec.describe Entry, 'モデルに関するテスト', type: :model do
 
       it 'room_idを入れて保存' do
         user = FactoryBot.create(:room)
-        expect(FactoryBot.create(:centry, user_id: user.id)).to be_valid
+        expect(FactoryBot.create(:entry, user_id: user.id)).to be_valid
       end
     end
     # context "保存できない場合" do
