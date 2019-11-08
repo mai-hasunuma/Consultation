@@ -10,6 +10,10 @@ RSpec.describe RoomComment, 'モデルに関するテスト', type: :model do
     it 'Roomモデルに属している' do
       is_expected.to belong_to(:room)
     end
+
+    it '通知モデルを複数持っている' do
+      is_expected.to have_many(:notifications)
+    end
   end
 
   describe '実際に保存してみる' do
