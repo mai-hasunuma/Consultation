@@ -24,7 +24,7 @@
 - リアルタイムチャット機能(action-cable)
 - ページネーション機能(kaminari)
 - ユーザの論理削除(gem:paranoia)
-- 画像投稿機能(ActiveStorage)
+- 画像投稿機能(ActiveStorage+S3)
 - DM機能
 - おすすめユーザー表示機能
 - 通知機能
@@ -48,6 +48,7 @@
 - AWS
   - EC2(nginx+puma)
   - RDS
+  - S3
 
 ### その他
 - 環境変数によるパスワード管理
