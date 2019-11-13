@@ -66,6 +66,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'rspec-parameterized'
   gem 'shoulda-matchers', require: false
+  gem 'simplecov'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
