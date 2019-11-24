@@ -70,7 +70,7 @@ RSpec.describe BoardsController, type: :controller do
           sign_in @user
           expect {
             post :create,params: { board: board_params }
-          }.to_not change(@user.boards, :count)
+          }.to_not change(@user.boardgis, :count)
         end
       end
     end
