@@ -23,8 +23,8 @@ class Board < ApplicationRecord
     board_owner_id = BoardComment.find(board_comment_id).board.user_id
     # 自分以外にコメントしている人をすべて取得し、全員に通知を送る
     # Comment.select(:user_id):BoardCommentテーブルのユーザidを取得する。
-    # where(board_id: self.id).where.not(user_id: current_user.id).distinct :board_idは自分自身(@board)のid、かつカレントユーザ以外を取りたい
-    board_writed_users = BoardComment.select(:user_id).where(board_id: id).where.not(user_id: write_user.id).distinct
+    # where(board_id: self.id).where.not(user_id: write_user.id).distinct :board_idは自分自身(@board)のid、かつカレントユーザ以外を取りたい
+    board_writed_users = BoardComment.select(:user_id).where(board_id: self.id).where.not(user_id: write_user.id).distinct
     # 掲示板にコメントしたことがあるユーザたち
     board_writed_users.each do |writed_user|
       # いま書き込みをした人が過去書き込みをしたことがなければ　通知を作成して保存する
