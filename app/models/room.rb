@@ -14,11 +14,6 @@ class Room < ApplicationRecord
 
   def create_notification_room_comment!(current_user, room_comment_id)
     other_user_id = Entry.select(:user_id).where(room_id: id).where.not(user_id: current_user.id)
-    # other_user_ids = RoomComment.select(:user_id).where(room_id: self.id).where.not(user_id: current_user.id).distinct
-    # other_user_ids.each do |temp_id|
-    #   save_notification_room_comment!(current_user, room_comment_id, temp_id['user_id'])
-    # end
-    # binding.pry
     save_notification_room_comment!(current_user, room_comment_id, other_user_id[0])
   end
 

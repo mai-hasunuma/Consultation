@@ -9,22 +9,6 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
 
   received: function(data) {
     console.log(data)
-    // var chat = document.getElementById('chat');
-    // var newMessage = document.createElement('span');
-    // newMessage.innerText = data.message;
-    // chat.appendChild(newMessage);
-
-    // var newUserImage = document.createElement('img');
-    // newUserImage.src = data.image;
-    // chat.appendChild(newUserImage);
-
-    // var newUser = document.createElement('p');
-    // newUser.innerText = data.name;
-    // chat.appendChild(newUser);
-        // dataが複数の時は下記のようにdata.messsageなどとして受け取れるように配列でデータを送るようにboard_channel.rbに定義する
-    // console.log(data.message)
-    // console.log(data.user_id)
-    // Called when there's incoming data on the websocket for this channel
     // chatというIDの属性要素を取得する
     var chat = document.getElementById('chat');
     //以下メッセージ作成
@@ -37,7 +21,6 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
 
     var col3 = document.createElement('div');
     col3.className = "col-md-3";
-    //debugger
     var textleft = document.createElement('div');
     textleft.style = "text-align: left;";
     textleft.innerText = data.message;
@@ -47,7 +30,6 @@ App.room = App.cable.subscriptions.create("RoomChannel", {
 
     var deletelink = document.createElement('a');
     deletelink.style = "text-decoration: none; color: #565656; font-size: 15px;"
-    // dataconfirm
     deletelink.rel = "nofollow"
     deletelink.setAttribute('data-confirm', '削除しますか？')
     deletelink.href = "/room_comments/" + data.id;
