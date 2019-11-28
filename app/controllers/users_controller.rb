@@ -41,7 +41,7 @@ class UsersController < ApplicationController
           @userEntry.each do |u|
         # ログインしているユーザーの部屋と表示しているユーザーの部屋で同じでないならばスキップする、つまり同じであるならば下を実行
             next unless cu.room_id == u.room_id
-　　　　　# @isRoomをtrueにする
+        # @isRoomをtrueにする
             @isRoom = true
         # roomIdをviewに受け渡すために定義
             @roomId = cu.room_id
