@@ -31,11 +31,11 @@ class Board < ApplicationRecord
       if write_user.id != writed_user.id
         save_notification_board_comment!(write_user, board_comment_id, writed_user['user_id'])
       end
-      # 過去書き込みがあった人が掲示板ユーザと同一ならば
+      # 過去書き込みがあった人が掲示板作成者と同一ならば
       owner_comment = true if writed_user.user_id == board_owner_id
     end
 
-    # board_writed_usersに掲示板作成者がいなければ投稿者本人に通知を送る
+    # board_writed_usersがブランク、つまり過去買い込みした人がいない、かつオーナーのコメントでない場合、掲示板作成者にだけ通知を送る
     if board_writed_users.blank? && !owner_comment
       save_notification_board_comment!(write_user, board_comment_id, board_owner_id)
     end

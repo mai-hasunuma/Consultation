@@ -62,11 +62,6 @@ class BoardsController < ApplicationController
     @boards = @b.result(distinct: true).page(params[:page]).per(10)
   end
 
-  def search
-    @b = BoardCategory.search(search_params)
-    @boards = @b.result(distinct: true).page(params[:page]).per(10)
-  end
-
   def destroy
     @board = Board.find(params[:id])
     @board.destroy
@@ -82,9 +77,5 @@ class BoardsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:title, :content, images: [], board_category_ids: [])
-  end
-
-  def search_params
-    params.require(:q).permit!
   end
 end

@@ -81,29 +81,6 @@ App.board = App.cable.subscriptions.create("BoardChannel", {
 
     chat.scrollTop = chat.scrollHeight;
 
-//     // .innerText;先ほどnewMessageで作成したpタグの要素の中身をmessageに変える（今回はpタグの中に文字を入れる）
-//     newMessage.innerText = data.message;
-//     // 親要素　id=chatの中にnewMessageを入れる
-//     chat.appendChild(newMessage);
-//     //ココマデ
-
-// 　　 // プロフィール画像表示
-//     var newUserImage = document.createElement('img');
-//     if(data.image){
-//       newUserImage.src = data.image;
-//     }else{
-//       newUserImage.src = "/no_image.png";
-//       newUserImage.width = 40;
-//       newUserImage.height = 40;
-//     };
-//     chat.appendChild(newUserImage);
-
-//     //以下ユーザ名表示
-//     //ココマラ
-//     var newUser = document.createElement('p');
-//     newUser.innerText = data.name;
-//     chat.appendChild(newUser);
-//     //ここまで
    },
 
   speak: function(message) {

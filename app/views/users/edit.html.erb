@@ -32,12 +32,11 @@
           <div class="field">
             <!-- 下の行で現在編集している一人のユーザのために、複数のcurrent_troubleテーブルを作成できるようになる -->
             <!-- collection_check_boxexを使うときはfields_forは不要　 -->
-            <%#= f.fields_for :current_troubles do |ct| %>
-              <!-- c.collection_check_categoryboxesで選択してcreateできるようになる -->
-              <!-- userモデルでhas_many :current_trouble_categories, :through => :current_troubles, source: :trouble_category と記載しているのでcurrent_trouble_category_idにtrouble_categoryを入れることができる -->
-              <%= f.collection_check_boxes :current_trouble_category_ids, @trouble_categories, :id, :name, include_hidden: false  do |b| %>
-                <%=  b.label {b.check_box + b.text}  %>
-              <% end %>
+            <!-- c.collection_check_categoryboxesで選択してcreateできるようになる -->
+            <!-- userモデルでhas_many :current_trouble_categories, :through => :current_troubles, source: :trouble_category と記載しているのでcurrent_trouble_category_idにtrouble_categoryを入れることができる -->
+            <%= f.collection_check_boxes :current_trouble_category_ids, @trouble_categories, :id, :name, include_hidden: false  do |b| %>
+              <%=  b.label {b.check_box + b.text}  %>
+            <% end %>
           </div>
         <p style="margin-top: 10px">過去悩んでいたこと</p>
         <div class="field">

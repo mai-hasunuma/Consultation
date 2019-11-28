@@ -51,36 +51,48 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'rubocop', require: false
+  # railsの開発速度を上げるためのgem
   gem 'spring'
+  # rspecを高速化する
   gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
+  # UIテストのため
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
+  # ChromeDriverをかんたんに導入してくれるgem
   gem 'webdrivers', '~> 3.0'
+  # テストデータ作成
   gem 'faker'
+  # コントローラーのテストをする
   gem 'rails-controller-testing'
+  # テストコードをDRYに書くためのGEM
   gem 'rspec-parameterized'
+  # テストの結果が簡潔になる
   gem 'shoulda-matchers', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+# 管理者画面でユーザのロンんり削除を実装するためのgem
 gem 'active_admin_paranoia', '~> 1.0.11'
 gem 'activeadmin'
 gem 'bootstrap', '~> 4.3.1'
+# ネスト
 gem 'cocoon'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'jquery-rails'
+# ページネーション
 gem 'kaminari'
+# 論理削除
 gem 'paranoia'
 gem 'pry-byebug'
 gem 'rails-i18n'
+# 検索機能
 gem 'ransack'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
