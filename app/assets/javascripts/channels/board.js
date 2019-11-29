@@ -86,8 +86,12 @@ App.board = App.cable.subscriptions.create("BoardChannel", {
   speak: function(message) {
     return this.perform('speak', {
       message: message,
-      name: name,
+      // name: name,
       // 掲示板コメントテーブルで掲示板idを持っているので、URL boards/:idのidからURLを取得（URLの一番最後から取得する）
+      // window.location.pathnameで"/boards/1"
+      // window.location.pathname.split('/')で["", "boards", "1"]
+      // window.location.pathname.split('/1').slice(-1)で["1"]（配列で取得）
+      // window.location.pathname.split('/').slice(-1)[0]で配列の0番目を取得し、"1"
       board_id: window.location.pathname.split('/').slice(-1)[0],
     });
   }
