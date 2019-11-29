@@ -10,12 +10,12 @@ class RoomsController < ApplicationController
     @entry1.room_id = @room.id
     @entry1.user_id = current_user.id
     @entry1.save
-    # create(room_id: @room.id, user_id: current_user.id)
+
     @entry2 = Entry.new
     @entry2.room_id = @room.id
     @entry2.user_id = params[:entry][:user_id]
     @entry2.save
-    # create(room_id: @room.id, user_id: params[:entry][:user_id])
+
     redirect_to "/rooms/#{@room.id}"
   end
 
