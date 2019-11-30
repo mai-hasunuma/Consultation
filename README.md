@@ -34,7 +34,6 @@
 # 使用技術
 ### フロントエンド
 - javascript
-- ActionCable
 - bootstrap
 
 ### バックエンド
