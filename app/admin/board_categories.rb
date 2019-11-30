@@ -20,11 +20,4 @@ ActiveAdmin.register BoardCategory do
   filter :name
   filter :created_at
   filter :updated_at
-  # or
-  #
-  # permit_params do
-  #   permitted = [:name]
-  #   permitted << :other if params[:action] == dmin'create' && current_user.admin?
-  #   permitted
-  # end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Board do
-  # 関連付け
+  # 関連付けしてboard画面でboard_commentも表示できるようにする
   controller do
     def scoped_collection
       Board.includes(:board_comments)
@@ -49,12 +49,13 @@ ActiveAdmin.register Board do
 
   form do |f|
     f.inputs 'Boards' do
+      # セレクトボックスでユーザの名前で選択できるようにしている
       f.input :user_id, as: :select, collection: User.all.map { |u| [u.name, u.id] }
       f.input :title
       f.input :content
       f.input :image, as: :file
     end
-    # board_commentの編集削除　https://qiita.com/Yinaura/items/e4cad1b59afe08b7de11
+    # board_commentの新規作成、編集、削除　https://qiita.com/Yinaura/items/e4cad1b59afe08b7de11
     f.inputs do
       f.has_many :board_comments, allow_destroy: true do |t|
         t.input :content
@@ -62,13 +63,4 @@ ActiveAdmin.register Board do
     end
     f.actions
   end
-
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:user_id, :title, :content, :image]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
 end

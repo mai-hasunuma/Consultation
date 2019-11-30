@@ -53,7 +53,9 @@ User.with_deleted.delete_all
 user1 = User.create(name: 'テスト', email: ENV['EMAIL1'], password: ENV['PASSWORD_test'], password_confirmation: ENV['PASSWORD_test'], housewife_year: 4, introduction: '結婚３年目で１才の子供を保育園に預けながら時短で働いています。最近産休から仕事に復帰しました。子供の夜泣きで寝不足の日々ですが、子供は最高に可愛いです。育児と仕事の両立で忙しいですが、日々充実しています。子育て中のワーママさん、先輩ママさん、仲良くしてください。よろしくお願いいたします。')
 # ①エラー解決のために記述
 # ここから
+# s3のconsultation-bucketのi.pngを取得する
 obj = s3.bucket('consultation-bucket').object('1.png')
+# publicいかに保存する
 obj.get(response_target: 'public/1.png')
 # ここまで
 user1.image.attach(io: File.open('public/1.png'), filename: '1.png')
