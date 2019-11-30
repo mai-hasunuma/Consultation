@@ -52,12 +52,4 @@ ActiveAdmin.register Room do
     end
     f.actions
   end
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = []
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
 end
